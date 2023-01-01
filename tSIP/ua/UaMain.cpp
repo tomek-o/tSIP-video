@@ -901,7 +901,11 @@ static int app_start(void)
 		for (le = vidcodec_list()->head; le; le=le->next) {
 			struct vidcodec *vc = (struct vidcodec*)le->data;
 			AnsiString tmp;
-			tmp.sprintf("%s", vc->name);
+			if (vc->variant) {
+				tmp.sprintf("%s/%s", vc->name, vc->variant);
+			} else {
+            	tmp = vc->name;
+			}
 			videoCodecs.push_back(tmp);
 		}
 		videoCodecsAvailable = true;
