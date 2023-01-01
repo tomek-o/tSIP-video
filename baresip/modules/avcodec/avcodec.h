@@ -23,11 +23,6 @@ int encode_update(struct videnc_state **vesp, const struct vidcodec *vc,
 		  struct videnc_param *prm, const char *fmtp);
 int encode(struct videnc_state *st, bool update, const struct vidframe *frame,
 	   videnc_packet_h *pkth, void *arg);
-#ifdef USE_X264
-int encode_x264(struct videnc_state *st, bool update,
-		const struct vidframe *frame,
-		videnc_packet_h *pkth, void *arg);
-#endif
 
 
 /*

@@ -8,9 +8,6 @@
 #include <rem.h>
 #include <baresip.h>
 #include <libavcodec/avcodec.h>
-#ifdef USE_X264
-#include <x264.h>
-#endif
 #include "h26x.h"
 #include "avcodec.h"
 
@@ -125,11 +122,7 @@ static struct vidcodec h264 = {
 	"packetization-mode=0",
 	NULL,
 	encode_update,
-#ifdef USE_X264
-	encode_x264,
-#else
 	encode,
-#endif
 	decode_update,
 	decode_h264,
 	h264_fmtp_enc,
@@ -138,11 +131,7 @@ static struct vidcodec h264 = {
 	.name      = "H264",
 	.variant   = "packetization-mode=0",
 	.encupdh   = encode_update,
-#ifdef USE_X264
-	.ench      = encode_x264,
-#else
 	.ench      = encode,
-#endif
 	.decupdh   = decode_update,
 	.dech      = decode_h264,
 	.fmtp_ench = h264_fmtp_enc,
@@ -200,12 +189,6 @@ static struct vidcodec mpg4 = {
 
 static int module_init(void)
 {
-#ifdef USE_X264
-	re_printf("x264 build %d\n", X264_BUILD);
-#else
-	re_printf("using FFmpeg H.264 encoder\n");
-#endif
-
 #if LIBAVCODEC_VERSION_INT < ((53<<16)+(10<<8)+0)
 	avcodec_init();
 #endif
