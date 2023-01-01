@@ -23,12 +23,21 @@
 #include <re_dbg.h>
 
 
+const AVCodec *avcodec_h264enc;      /* optional; specified H.264 encoder */
+const AVCodec *avcodec_h264dec;      /* optional; specified H.264 decoder */
+const AVCodec *avcodec_h265enc;
+const AVCodec *avcodec_h265dec;
+
 int avcodec_resolve_codecid(const char *s)
 {
 	if (0 == str_casecmp(s, "H263"))
 		return AV_CODEC_ID_H263;
 	else if (0 == str_casecmp(s, "H264"))
 		return AV_CODEC_ID_H264;
+#ifdef AV_CODEC_ID_H265
+	else if (0 == str_casecmp(s, "H265"))
+		return AV_CODEC_ID_H265;
+#endif
 	else if (0 == str_casecmp(s, "MP4V-ES"))
 		return AV_CODEC_ID_MPEG4;
 	else
@@ -130,6 +139,20 @@ static struct vidcodec h264 = {
 #endif
 };
 
+#if 0
+static struct vidcodec h265 = {
+	LE_INIT,
+	NULL,
+	.name      = "H265",
+	.fmtp      = "profile-id=1",
+	.encupdh   = avcodec_encode_update,
+	.ench      = avcodec_encode,
+	.decupdh   = avcodec_decode_update,
+	.dech      = avcodec_decode_h265,
+	.packetizeh= avcodec_packetize,
+};
+#endif
+
 static struct vidcodec h263 = {
 #if defined(__BORLANDC__)
 	LE_INIT,		/* le */
@@ -180,13 +203,44 @@ static struct vidcodec mpg4 = {
 
 static int module_init(void)
 {
+	char h264enc[64] = "libx264";
+	char h264dec[64] = "h264";
+	char h265enc[64] = "libx265";
+	char h265dec[64] = "hevc";
+	
 	avcodec_register_all();
 
-	if (avcodec_find_decoder(AV_CODEC_ID_H264))
+	avcodec_h264enc = avcodec_find_encoder_by_name(h264enc);
+	if (!avcodec_h264enc) {
+		DEBUG_WARNING("avcodec: h264 encoder not found (%s)\n", h264enc);
+	}
+
+	avcodec_h264dec = avcodec_find_decoder_by_name(h264dec);
+	if (!avcodec_h264dec) {
+		DEBUG_WARNING("avcodec: h264 decoder not found (%s)\n", h264dec);
+	}
+
+	avcodec_h265enc = avcodec_find_encoder_by_name(h265enc);
+	avcodec_h265dec = avcodec_find_decoder_by_name(h265dec);
+
+	if (avcodec_h264enc || avcodec_h264dec) {
 		vidcodec_register(&h264);
+		//vidcodec_register(vidcodecl, &h264_1);
+	}
+
+	//if (avcodec_find_decoder(AV_CODEC_ID_H264))
+	//	vidcodec_register(&h264);
 
 	if (avcodec_find_decoder(AV_CODEC_ID_H263))
 		vidcodec_register(&h263);
+	if (avcodec_h264enc) {
+		DEBUG_INFO("avcodec: using H.264 encoder '%s' -- %s\n",
+		     avcodec_h264enc->name, avcodec_h264enc->long_name);
+	}
+	if (avcodec_h264dec) {
+		DEBUG_INFO("avcodec: using H.264 decoder '%s' -- %s\n",
+		     avcodec_h264dec->name, avcodec_h264dec->long_name);
+	}
 
 	if (avcodec_find_decoder(AV_CODEC_ID_MPEG4))
 		vidcodec_register(&mpg4);

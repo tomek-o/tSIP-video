@@ -36,7 +36,7 @@ struct picsz {
 
 
 struct videnc_state {
-	AVCodec *codec;
+	const AVCodec *codec;
 	AVCodecContext *ctx;
 	AVFrame *pict;
 	struct mbuf *mb;
@@ -123,8 +123,29 @@ static int decode_sdpparam_h263(struct videnc_state *st, const struct pl *name,
 }
 
 
-static int init_encoder(struct videnc_state *st)
+static int init_encoder(struct videnc_state *st, const char *name)
 {
+	/*
+	 * Special handling of H.264 encoder
+	 */
+	if (st->codec_id == AV_CODEC_ID_H264 && avcodec_h264enc) {
+
+		st->codec = avcodec_h264enc;
+
+		DEBUG_INFO("avcodec: h264 encoder activated\n");
+
+		return 0;
+	}
+
+	if (0 == str_casecmp(name, "h265")) {
+
+		st->codec = avcodec_h265enc;
+
+		DEBUG_INFO("avcodec: h265 encoder activated\n");
+
+		return 0;
+	}
+
 	st->codec = avcodec_find_encoder(st->codec_id);
 	if (!st->codec)
 		return ENOENT;
@@ -164,6 +185,17 @@ static int open_encoder(struct videnc_state *st,
 	st->ctx->pix_fmt   = AV_PIX_FMT_YUV420P;
 	st->ctx->time_base.num = 1;
 	st->ctx->time_base.den = prm->fps;
+	if (0 == str_cmp(st->codec->name, "libx264")) {
+
+		av_opt_set(st->ctx->priv_data, "profile", "baseline", 0);
+		av_opt_set(st->ctx->priv_data, "preset", "ultrafast", 0);
+		av_opt_set(st->ctx->priv_data, "tune", "zerolatency", 0);
+
+		if (st->u.h264.packetization_mode == 0) {
+			av_opt_set_int(st->ctx->priv_data,
+				       "slice-max-size", prm->pktsize, 0);
+		}
+	}
 
 	/* params to avoid ffmpeg/x264 default preset error */
 	if (st->codec_id == AV_CODEC_ID_H264) {
@@ -205,6 +237,12 @@ static int open_encoder(struct videnc_state *st,
 		}
 	}
 
+	if (0 == str_cmp(st->codec->name, "libx265")) {
+
+		av_opt_set(st->ctx->priv_data, "profile", "main444-8", 0);
+		av_opt_set(st->ctx->priv_data, "preset", "ultrafast", 0);
+		av_opt_set(st->ctx->priv_data, "tune", "zerolatency", 0);
+	}
 	if (avcodec_open2(st->ctx, st->codec, NULL) < 0) {
 		err = ENOENT;
 		goto out;
@@ -367,6 +405,7 @@ int encode_update(struct videnc_state **vesp, const struct vidcodec *vc,
 
 	st->codec_id = avcodec_resolve_codecid(vc->name);
 	if (st->codec_id == AV_CODEC_ID_NONE) {
+		DEBUG_WARNING("avcodec: unknown encoder (%s)\n", vc->name);
 		err = EINVAL;
 		goto out;
 	}
@@ -380,13 +419,9 @@ int encode_update(struct videnc_state **vesp, const struct vidcodec *vc,
 
 	st->sz_max = st->mb->size;
 
-	if (st->codec_id == AV_CODEC_ID_H264) {
-		err = init_encoder(st);
-	}
-	else
-		err = init_encoder(st);
+	err = init_encoder(st, vc->name);
 	if (err) {
-		DEBUG_WARNING("%s: could not init encoder\n", vc->name);
+		DEBUG_WARNING("avcodec: %s: could not init encoder\n", vc->name);
 		goto out;
 	}
 

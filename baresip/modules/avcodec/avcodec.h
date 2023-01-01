@@ -6,6 +6,11 @@
 
 
 extern const uint8_t h264_level_idc;
+extern const AVCodec *avcodec_h264enc;
+extern const AVCodec *avcodec_h264dec;
+
+extern const AVCodec *avcodec_h265enc;
+extern const AVCodec *avcodec_h265dec;
 
 
 /*
