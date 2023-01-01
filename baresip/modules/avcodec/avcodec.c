@@ -45,47 +45,6 @@ int avcodec_resolve_codecid(const char *s)
 }
 
 
-static uint32_t packetization_mode(const char *fmtp)
-{
-	struct pl pl, mode;
-
-	if (!fmtp)
-		return 0;
-
-	pl_set_str(&pl, fmtp);
-
-	if (fmt_param_get(&pl, "packetization-mode", &mode))
-		return pl_u32(&mode);
-
-	return 0;
-}
-
-
-static int h264_fmtp_enc(struct mbuf *mb, const struct sdp_format *fmt,
-			 bool offer, void *arg)
-{
-	struct vidcodec *vc = arg;
-	const uint8_t profile_idc = 0x42; /* baseline profile */
-	const uint8_t profile_iop = 0x80;
-	(void)offer;
-
-	if (!mb || !fmt || !vc)
-		return 0;
-
-	return mbuf_printf(mb, "a=fmtp:%s"
-			   " packetization-mode=0"
-			   ";profile-level-id=%02x%02x%02x"
-			   "\r\n",
-			   fmt->id, profile_idc, profile_iop, h264_level_idc);
-}
-
-
-static bool h264_fmtp_cmp(const char *fmtp1, const char *fmtp2, void *data)
-{
-	(void)data;
-
-	return packetization_mode(fmtp1) == packetization_mode(fmtp2);
-}
 
 
 static int h263_fmtp_enc(struct mbuf *mb, const struct sdp_format *fmt,
@@ -114,7 +73,7 @@ static int mpg4_fmtp_enc(struct mbuf *mb, const struct sdp_format *fmt,
 }
 
 
-static struct vidcodec h264 = {
+static struct vidcodec h264_0 = {
 #if defined(__BORLANDC__)
 	LE_INIT,
 	NULL,
@@ -125,8 +84,8 @@ static struct vidcodec h264 = {
 	encode,
 	decode_update,
 	decode_h264,
-	h264_fmtp_enc,
-	h264_fmtp_cmp,
+	avcodec_h264_fmtp_enc,
+	avcodec_h264_fmtp_cmp,
 #else
 	.name      = "H264",
 	.variant   = "packetization-mode=0",
@@ -134,9 +93,23 @@ static struct vidcodec h264 = {
 	.ench      = encode,
 	.decupdh   = decode_update,
 	.dech      = decode_h264,
-	.fmtp_ench = h264_fmtp_enc,
-	.fmtp_cmph = h264_fmtp_cmp,
+	.fmtp_ench = avcodec_h264_fmtp_enc,
+	.fmtp_cmph = avcodec_h264_fmtp_cmp,
 #endif
+};
+
+static struct vidcodec h264_1 = {
+	LE_INIT,
+	NULL,
+	"H264",
+	"packetization-mode=1",
+	NULL,
+	encode_update,
+	encode,
+	decode_update,
+	decode_h264,
+	avcodec_h264_fmtp_enc,
+	avcodec_h264_fmtp_cmp
 };
 
 #if 0
@@ -207,7 +180,7 @@ static int module_init(void)
 	char h264dec[64] = "h264";
 	char h265enc[64] = "libx265";
 	char h265dec[64] = "hevc";
-	
+
 	avcodec_register_all();
 
 	avcodec_h264enc = avcodec_find_encoder_by_name(h264enc);
@@ -224,15 +197,9 @@ static int module_init(void)
 	avcodec_h265dec = avcodec_find_decoder_by_name(h265dec);
 
 	if (avcodec_h264enc || avcodec_h264dec) {
-		vidcodec_register(&h264);
-		//vidcodec_register(vidcodecl, &h264_1);
+		vidcodec_register(&h264_0);
+		vidcodec_register(&h264_1);
 	}
-
-	//if (avcodec_find_decoder(AV_CODEC_ID_H264))
-	//	vidcodec_register(&h264);
-
-	if (avcodec_find_decoder(AV_CODEC_ID_H263))
-		vidcodec_register(&h263);
 	if (avcodec_h264enc) {
 		DEBUG_INFO("avcodec: using H.264 encoder '%s' -- %s\n",
 		     avcodec_h264enc->name, avcodec_h264enc->long_name);
@@ -241,6 +208,9 @@ static int module_init(void)
 		DEBUG_INFO("avcodec: using H.264 decoder '%s' -- %s\n",
 		     avcodec_h264dec->name, avcodec_h264dec->long_name);
 	}
+
+	if (avcodec_find_decoder(AV_CODEC_ID_H263))
+		vidcodec_register(&h263);
 
 	if (avcodec_find_decoder(AV_CODEC_ID_MPEG4))
 		vidcodec_register(&mpg4);
@@ -253,7 +223,8 @@ static int module_close(void)
 {
 	vidcodec_unregister(&mpg4);
 	vidcodec_unregister(&h263);
-	vidcodec_unregister(&h264);
+	vidcodec_unregister(&h264_0);
+	vidcodec_unregister(&h264_1);
 
 	return 0;
 }
