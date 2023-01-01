@@ -5,11 +5,6 @@
  */
 
 
-#if LIBAVCODEC_VERSION_INT >= ((54<<16)+(25<<8)+0)
-#define CodecID AVCodecID
-#endif
-
-
 extern const uint8_t h264_level_idc;
 
 

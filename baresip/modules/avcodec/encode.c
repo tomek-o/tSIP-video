@@ -142,11 +142,7 @@ static int open_encoder(struct videnc_state *st,
 	if (st->pict)
 		av_free(st->pict);
 
-#if LIBAVCODEC_VERSION_INT >= ((52<<16)+(92<<8)+0)
 	st->ctx = avcodec_alloc_context3(st->codec);
-#else
-	st->ctx = avcodec_alloc_context();
-#endif
 
 	st->pict = av_frame_alloc(); //avcodec_alloc_frame();
 
@@ -203,17 +199,10 @@ static int open_encoder(struct videnc_state *st,
 		}
 	}
 
-#if LIBAVCODEC_VERSION_INT >= ((53<<16)+(8<<8)+0)
 	if (avcodec_open2(st->ctx, st->codec, NULL) < 0) {
 		err = ENOENT;
 		goto out;
 	}
-#else
-	if (avcodec_open(st->ctx, st->codec) < 0) {
-		err = ENOENT;
-		goto out;
-	}
-#endif
 
  out:
 	if (err) {
@@ -454,7 +443,6 @@ int encode(struct videnc_state *st, bool update, const struct vidframe *frame,
 
 	mbuf_rewind(st->mb);
 
-#if LIBAVCODEC_VERSION_INT >= ((54<<16)+(1<<8)+0)
 	do {
 		AVPacket *avpkt = av_packet_alloc();
 		int got_packet = 0;
@@ -476,21 +464,7 @@ int encode(struct videnc_state *st, bool update, const struct vidframe *frame,
 		mbuf_set_end(st->mb, avpkt->size);
 		av_packet_free(&avpkt);
 	} while (0);
-#else
-	ret = avcodec_encode_video(st->ctx, st->mb->buf,
-				   (int)st->mb->size, st->pict);
-	if (ret < 0 )
-		return EBADMSG;
 
-	/* todo: figure out proper buffer size */
-	if (ret > (int)st->sz_max) {
-		re_printf("note: grow encode buffer %u --> %d\n",
-			  st->sz_max, ret);
-		st->sz_max = ret;
-	}
-
-	mbuf_set_end(st->mb, ret);
-#endif
 
 	switch (st->codec_id) {
 

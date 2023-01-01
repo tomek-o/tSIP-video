@@ -45,7 +45,7 @@ static void destructor(void *arg)
 
 static int init_decoder(struct viddec_state *st, const char *name)
 {
-	enum CodecID codec_id;
+	enum AVCodecID codec_id;
 
 	codec_id = avcodec_resolve_codecid(name);
 	if (codec_id == AV_CODEC_ID_NONE)
@@ -55,24 +55,15 @@ static int init_decoder(struct viddec_state *st, const char *name)
 	if (!st->codec)
 		return ENOENT;
 
-#if LIBAVCODEC_VERSION_INT >= ((52<<16)+(92<<8)+0)
 	st->ctx = avcodec_alloc_context3(st->codec);
-#else
-	st->ctx = avcodec_alloc_context();
-#endif
 
 	st->pict = av_frame_alloc(); //avcodec_alloc_frame();
 
 	if (!st->ctx || !st->pict)
 		return ENOMEM;
 
-#if LIBAVCODEC_VERSION_INT >= ((53<<16)+(8<<8)+0)
 	if (avcodec_open2(st->ctx, st->codec, NULL) < 0)
 		return ENOENT;
-#else
-	if (avcodec_open(st->ctx, st->codec) < 0)
-		return ENOENT;
-#endif
 
 	return 0;
 }
@@ -143,11 +134,6 @@ static int ffdecode(struct viddec_state *st, struct vidframe *frame,
 		goto out;
 	}
 
-#if LIBAVCODEC_VERSION_INT <= ((52<<16)+(23<<8)+0)
-	ret = avcodec_decode_video(st->ctx, st->pict, &got_picture,
-				   st->mb->buf,
-				   (int)mbuf_get_left(st->mb));
-#else
 	do {
 		AVPacket avpkt;
 
@@ -156,9 +142,8 @@ static int ffdecode(struct viddec_state *st, struct vidframe *frame,
 		avpkt.size = (int)mbuf_get_left(st->mb);
 
 		ret = avcodec_decode_video2(st->ctx, st->pict,
-					    &got_picture, &avpkt);
+						&got_picture, &avpkt);
 	} while (0);
-#endif
 
 	if (ret < 0) {
 		err = EBADMSG;

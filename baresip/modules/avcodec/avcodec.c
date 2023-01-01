@@ -189,10 +189,6 @@ static struct vidcodec mpg4 = {
 
 static int module_init(void)
 {
-#if LIBAVCODEC_VERSION_INT < ((53<<16)+(10<<8)+0)
-	avcodec_init();
-#endif
-
 	avcodec_register_all();
 
 	if (avcodec_find_decoder(AV_CODEC_ID_H264))
