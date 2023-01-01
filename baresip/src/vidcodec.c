@@ -23,7 +23,11 @@ void vidcodec_register(struct vidcodec *vc)
 
 	list_append(&vidcodecl, &vc->le, vc);
 
-	(void)re_printf("vidcodec: %s\n", vc->name);
+	if (vc->variant) {
+		(void)re_printf("vidcodec: %s, variant: %s\n", vc->name, vc->variant);
+	} else {
+		(void)re_printf("vidcodec: %s\n", vc->name);
+	}
 }
 
 
@@ -64,6 +68,57 @@ const struct vidcodec *vidcodec_find(const char *name, const char *variant)
 			continue;
 
 		return vc;
+	}
+
+	return NULL;
+}
+
+/**
+ * Find a Video Encoder by name
+ *
+ * @param name      Name of the Video Encoder to find
+ *
+ * @return Matching Video Encoder if found, otherwise NULL
+ */
+const struct vidcodec *vidcodec_find_encoder(const char *name)
+{
+	struct le *le;
+
+	for (le=list_head(&vidcodecl); le; le=le->next) {
+
+		struct vidcodec *vc = le->data;
+
+		if (name && 0 != str_casecmp(name, vc->name))
+			continue;
+
+		if (vc->ench)
+			return vc;
+	}
+
+	return NULL;
+}
+
+
+/**
+ * Find a Video Decoder by name
+ *
+ * @param name      Name of the Video Decoder to find
+ *
+ * @return Matching Video Decoder if found, otherwise NULL
+ */
+const struct vidcodec *vidcodec_find_decoder(const char *name)
+{
+	struct le *le;
+
+	for (le=list_head(&vidcodecl); le; le=le->next) {
+
+		struct vidcodec *vc = le->data;
+
+		if (name && 0 != str_casecmp(name, vc->name))
+			continue;
+
+		if (vc->dech)
+			return vc;
 	}
 
 	return NULL;
