@@ -7,7 +7,13 @@
 #include <stdint.h>
 #include <rem.h>
 #include <baresip.h>
+#ifdef __BORLANDC__
+#pragma warn -8056	// disable "Integer arithmetic overflow" warning
+#endif
 #include <libavcodec/avcodec.h>
+#ifdef __BORLANDC__
+#pragma warn .8056
+#endif
 #include <libavutil/opt.h>
 #include "h26x.h"
 #include "avcodec.h"

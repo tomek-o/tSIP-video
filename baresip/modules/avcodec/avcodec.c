@@ -7,7 +7,13 @@
 #include <stdint.h>
 #include <rem.h>
 #include <baresip.h>
+#ifdef __BORLANDC__
+#pragma warn -8056	// disable "Integer arithmetic overflow" warning
+#endif
 #include <libavcodec/avcodec.h>
+#ifdef __BORLANDC__
+#pragma warn .8056
+#endif
 #include "h26x.h"
 #include "avcodec.h"
 
@@ -98,21 +104,6 @@ static int mpg4_fmtp_enc(struct mbuf *mb, const struct sdp_format *fmt,
 	return mbuf_printf(mb, "a=fmtp:%s profile-level-id=3\r\n", fmt->id);
 }
 
-/*
-struct vidcodec {
-	struct le le;
-	const char *pt;
-	const char *name;
-	const char *variant;
-	const char *fmtp;
-	videnc_update_h *encupdh;
-	videnc_encode_h *ench;
-	viddec_update_h *decupdh;
-	viddec_decode_h *dech;
-	sdp_fmtp_enc_h *fmtp_ench;
-	sdp_fmtp_cmp_h *fmtp_cmph;
-};
-*/
 
 static struct vidcodec h264 = {
 #if defined(__BORLANDC__)
