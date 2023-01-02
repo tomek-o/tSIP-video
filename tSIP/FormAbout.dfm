@@ -277,7 +277,7 @@ object frmAbout: TfrmAbout
       Width = 510
       Height = 13
       Caption = 
-        'Copyright '#169' 2011 - 2022 Tomasz Ostrowski, distributed under the ' +
+        'Copyright '#169' 2011 - 2023 Tomasz Ostrowski, distributed under the ' +
         'same BSD-style license as re/rem/baresip.'
       IsControl = True
     end
@@ -1892,7 +1892,37 @@ object frmAbout: TfrmAbout
           '      of your accepting any such warranty or additional liabilit' +
           'y.'
         ''
-        '   END OF TERMS AND CONDITIONS')
+        '   END OF TERMS AND CONDITIONS'
+        '   '
+        ''
+        
+          '================================================================' +
+          '============='
+        'FFmpeg (LGPL version):'
+        
+          '================================================================' +
+          '============='
+        '   '
+        
+          'This program is free software: you can redistribute it and/or mo' +
+          'dify'
+        'it under the terms of the GNU Lesser General Public License as'
+        
+          'published by the Free Software Foundation, either version 3 of t' +
+          'he'
+        'License, or (at your option) any later version.'
+        ''
+        'This program is distributed in the hope that it will be useful,'
+        'but WITHOUT ANY WARRANTY; without even the implied warranty of'
+        'MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the'
+        'GNU General Public License for more details.'
+        ''
+        
+          'You should have received a copy of the GNU General Public Licens' +
+          'e'
+        
+          'along with this program.  If not, see <http://www.gnu.org/licens' +
+          'es/>.')
       ReadOnly = True
       ScrollBars = ssVertical
       TabOrder = 0
