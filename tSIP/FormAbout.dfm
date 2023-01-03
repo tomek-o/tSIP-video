@@ -1905,24 +1905,65 @@ object frmAbout: TfrmAbout
         '   '
         
           'This program is free software: you can redistribute it and/or mo' +
-          'dify'
-        'it under the terms of the GNU Lesser General Public License as'
+          'dify it under the terms of the GNU Lesser '
         
-          'published by the Free Software Foundation, either version 3 of t' +
-          'he'
-        'License, or (at your option) any later version.'
+          'General Public License as published by the Free Software Foundat' +
+          'ion, either version 3 of the License, or '
+        '(at your option) any later version.'
         ''
-        'This program is distributed in the hope that it will be useful,'
-        'but WITHOUT ANY WARRANTY; without even the implied warranty of'
-        'MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the'
-        'GNU General Public License for more details.'
+        
+          'This program is distributed in the hope that it will be useful, ' +
+          'but WITHOUT ANY WARRANTY; without '
+        
+          'even the implied warranty of MERCHANTABILITY or FITNESS FOR A PA' +
+          'RTICULAR PURPOSE.  See '
+        'the GNU General Public License for more details.'
         ''
         
           'You should have received a copy of the GNU General Public Licens' +
-          'e'
+          'e along with this program.  If not, see '
+        '<http://www.gnu.org/licenses/>.'
+        ''
+        ''
         
-          'along with this program.  If not, see <http://www.gnu.org/licens' +
-          'es/>.')
+          '================================================================' +
+          '============='
+        'SDL:'
+        
+          '================================================================' +
+          '============='
+        ''
+        'Simple DirectMedia Layer'
+        'Copyright (C) 1997-2020 Sam Lantinga <slouken@libsdl.org>'
+        ''
+        
+          'This software is provided '#39'as-is'#39', without any express or implie' +
+          'd warranty.  In no event will the authors be '
+        
+          'held liable for any damages arising from the use of this softwar' +
+          'e.'
+        ''
+        
+          'Permission is granted to anyone to use this software for any pur' +
+          'pose, including commercial applications, '
+        
+          'and to alter it and redistribute it freely, subject to the follo' +
+          'wing restrictions:'
+        ''
+        
+          '1. The origin of this software must not be misrepresented; you m' +
+          'ust not claim that you wrote the original '
+        
+          'software. If you use this software in a product, an acknowledgme' +
+          'nt in the product documentation would '
+        'be appreciated but is not required. '
+        
+          '2. Altered source versions must be plainly marked as such, and m' +
+          'ust not be misrepresented as being the '
+        'original software.'
+        
+          '3. This notice may not be removed or altered from any source dis' +
+          'tribution.')
       ReadOnly = True
       ScrollBars = ssVertical
       TabOrder = 0
