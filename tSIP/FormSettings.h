@@ -504,6 +504,8 @@ __published:	// IDE-managed Components
 	TListBox *lboxVideoCodecsEnabled;
 	TLabel *lblVideoCodecsInfo;
 	TLabel *lblVideoCodecsInfo2;
+	TTabSheet *tsVideo;
+	TCheckBox *chbVideoEnabled;
 	void __fastcall FormShow(TObject *Sender);
 	void __fastcall btnCancelClick(TObject *Sender);
 	void __fastcall btnApplyClick(TObject *Sender);

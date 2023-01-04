@@ -139,6 +139,7 @@ void TfrmSettings::CreatePages(void)
 		CreatePagesNode(NULL, tsRecording);
 	TTreeNode *nodeCodecs = CreatePagesNode(NULL, tsCodecs);
 	CreatePagesNode(nodeCodecs, tsUaConfOpus);
+	CreatePagesNode(NULL, tsVideo);
 	TTreeNode *nodeCodecsVideo = CreatePagesNode(NULL, tsVideoCodecs);
 	CreatePagesNode(NULL, tsIntegration);
 	CreatePagesNode(NULL, tsHotkeys);
@@ -575,6 +576,8 @@ void __fastcall TfrmSettings::FormShow(TObject *Sender)
 
 	frmDialpadConf->SetCfg(&tmpSettings.dialpad);
 
+	chbVideoEnabled->Checked = tmpSettings.video.enabled;
+
 	if (tmpSettings.locking.hiddenSettingsPages != previousHiddenSettingsPages)
 	{
 		CreatePages();
@@ -990,6 +993,8 @@ void __fastcall TfrmSettings::btnApplyClick(TObject *Sender)
 	frmUaConfOpus->Apply();
 
 	frmDialpadConf->Apply();
+
+	tmpSettings.video.enabled = chbVideoEnabled->Checked;
 
 	{
 		tmpSettings.locking.hiddenSettingsPages.clear();

@@ -520,6 +520,7 @@
         <FILE FILENAME="hotkeys\HotKeyConf.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="HotKeyConf" FORMNAME="" DESIGNCLASS="" ADDITIONAL="hotkeys\HotKeyConf.h"/>
         <FILE FILENAME="hotkeys\HotKeyConf.h" CONTAINERID="" LOCALCOMMAND="" UNITNAME="" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="history\HistoryConf.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="HistoryConf" FORMNAME="" DESIGNCLASS="" ADDITIONAL="history\HistoryConf.h"/>
+        <FILE FILENAME="VideoConf.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="VideoConf" FORMNAME="" DESIGNCLASS="" ADDITIONAL="VideoConf.h"/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>

@@ -809,6 +809,7 @@ int Settings::UpdateFromJsonValue(const Json::Value &root)
 	}
 
 	dialpad.fromJson(root["dialpad"]);
+	video.fromJson(root["video"]);
 
 	{
 		const Json::Value &jv = root["branding"];
@@ -1150,6 +1151,7 @@ int Settings::Write(AnsiString asFileName)
 	}
 
 	dialpad.toJson(root["dialpad"]);
+	video.toJson(root["video"]);
 
 	{
 		Json::Value &jv = root["branding"];

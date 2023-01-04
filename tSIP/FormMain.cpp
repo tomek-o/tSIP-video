@@ -921,8 +921,8 @@ void TfrmMain::MakeCall(AnsiString target)
 			return;
 		}
 	}
-    int TODO__VIDEO_SWITCH_WHEN_STARTING_CALL;
-	UA->Call(0, call.initialTarget, appSettings.Calls.extraHeaderLines, true /* video */);
+
+	UA->Call(0, call.initialTarget, appSettings.Calls.extraHeaderLines, appSettings.video.enabled);
 }
 
 void __fastcall TfrmMain::btnHangupClick(TObject *Sender)
