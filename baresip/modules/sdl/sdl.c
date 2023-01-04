@@ -6,6 +6,7 @@
 
 #define SDL_endian_h_
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_syswm.h>
 #include <re.h>
 #include <rem.h>
 #include <baresip.h>
@@ -29,6 +30,7 @@ struct vidisp_st {
 	struct vidsz size;              /**< Current size          */
 	enum vidfmt fmt;                /**< Current pixel format  */
 	bool fullscreen;                /**< Fullscreen flag       */
+	void *parent_handle;
 	struct mqueue *mq;
 	Uint32 flags;
 	bool quit;
@@ -181,6 +183,7 @@ static int alloc(struct vidisp_st **stp, const struct vidisp *vd,
 
 	st->vd = mem_ref((void*)vd);
 	st->fullscreen = prm ? prm->fullscreen : false;
+	st->parent_handle = prm ? prm->parent_handle : NULL;
 
 	err = mqueue_alloc(&st->mq, mqueue_handler, st);
 	if (err)
@@ -258,6 +261,15 @@ static int display(struct vidisp_st *st, const char *title,
 			DEBUG_WARNING("sdl: unable to create sdl window: %s\n",
 				SDL_GetError());
 			return ENODEV;
+		}
+
+		if (st->parent_handle) {
+			HWND hwnd;
+			SDL_SysWMinfo wmInfo;
+			SDL_VERSION(&wmInfo.version);
+			SDL_GetWindowWMInfo(st->window, &wmInfo);
+			hwnd = wmInfo.info.win.window;
+		    ::SetParent(hwnd, (HWND)st->parent_handle);			
 		}
 
 		st->size = frame->size;
