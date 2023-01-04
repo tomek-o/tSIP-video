@@ -92,7 +92,7 @@ void ControlQueue::Call(int accountId, AnsiString target, AnsiString extraHeader
 	fifo.push();
 }
 
-void ControlQueue::Answer(int callId, AnsiString audioRxMod, AnsiString audioRxDev)
+void ControlQueue::Answer(int callId, AnsiString audioRxMod, AnsiString audioRxDev, bool video)
 {
 	ScopedLock<Mutex> lock(mutex);
 	Command *cmd = fifo.getWriteable();
@@ -102,6 +102,7 @@ void ControlQueue::Answer(int callId, AnsiString audioRxMod, AnsiString audioRxD
 	cmd->audioMod = audioRxMod;
 	cmd->audioDev = audioRxDev;
 	cmd->callId = callId;
+	cmd->video = video;
 	fifo.push();
 }
 

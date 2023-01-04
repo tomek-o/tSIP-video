@@ -606,7 +606,7 @@ int  ua_connect(struct ua *ua, struct call **callp,
 		const char *params, enum vidmode vmode, const char* extra_hdr_lines);
 void ua_hangup(struct ua *ua, struct call *call,
 	       uint16_t scode, const char *reason);
-int  ua_answer(struct ua *ua, struct call *call, const char *audio_mod, const char *audio_dev);
+int  ua_answer(struct ua *ua, struct call *call, const char *audio_mod, const char *audio_dev, enum vidmode vmode);
 int  ua_options_send(struct ua *ua, const char *uri,
 		     options_resp_h *resph, void *arg);
 int  ua_sipfd(const struct ua *ua);
@@ -729,8 +729,8 @@ struct vidisp_st;
 
 /** Video Display parameters */
 struct vidisp_prm {
-	void *view;  /**< Optional view (set by application or module) */
-	bool fullscreen;  /**< Enable fullscreen display                    */
+	void *parent_handle;		/**< Optional parent handle (Windows: HWND) */
+	bool fullscreen;			/**< Enable fullscreen display                    */
 };
 
 typedef void (vidisp_resize_h)(const struct vidsz *size, void *arg);
@@ -931,7 +931,6 @@ const char* audio_get_rx_aucodec_name(const struct audio *a);
 struct video;
 
 void  video_mute(struct video *v, bool muted);
-void *video_view(const struct video *v);
 int   video_set_fullscreen(struct video *v, bool fs);
 int   video_set_orient(struct video *v, int orient);
 void  video_vidsrc_set_device(struct video *v, const char *dev);

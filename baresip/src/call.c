@@ -777,7 +777,7 @@ int call_progress(struct call *call)
 }
 
 
-int call_answer(struct call *call, uint16_t scode, const char *audio_mod, const char *audio_dev)
+int call_answer(struct call *call, uint16_t scode, const char *audio_mod, const char *audio_dev, enum vidmode vmode)
 {
 	struct mbuf *desc;
 	int err;
@@ -794,6 +794,13 @@ int call_answer(struct call *call, uint16_t scode, const char *audio_mod, const 
 
 	if (audio_mod && audio_dev && audio_mod[0] != '\0') {
 		audio_set_rx_device(call->audio, audio_mod, audio_dev);
+	}
+
+	if (vmode == VIDMODE_OFF && call->video) {
+		if (call_has_video(call)) {
+			(void)re_printf("answering call: video is disabled\n");
+		}
+		call->video = mem_deref(call->video);
 	}
 
 	if (call->got_offer) {

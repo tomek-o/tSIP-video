@@ -942,7 +942,7 @@ void TfrmMain::Answer(void)
 {
 	if (call.incoming)
 	{
-		UA->Answer(0);
+		UA->Answer(0, "", "", appSettings.video.enabled);
 		if (appSettings.frmMain.bShowWhenAnsweringCall)
 		{
 			if (!Visible)
@@ -3024,7 +3024,7 @@ void TfrmMain::AutoAnswer(void)
 	if (autoAnswerCode == 200) {
 		if (autoAnswerIntercom) {
 			LOG("Answering with module %s, device %s\n", appSettings.uaConf.audioCfgPlayIntercom.mod.c_str(), appSettings.uaConf.audioCfgPlayIntercom.dev.c_str());
-			UA->Answer(0, appSettings.uaConf.audioCfgPlayIntercom.mod.c_str(), appSettings.uaConf.audioCfgPlayIntercom.dev.c_str());
+			UA->Answer(0, appSettings.uaConf.audioCfgPlayIntercom.mod.c_str(), appSettings.uaConf.audioCfgPlayIntercom.dev.c_str(), appSettings.video.enabled);
 		} else {
 			Answer();
 		}

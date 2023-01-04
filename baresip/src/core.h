@@ -183,7 +183,7 @@ int  call_accept(struct call *call, struct sipsess_sock *sess_sock,
 		 const struct sip_msg *msg);
 int  call_hangup(struct call *call, uint16_t scode, const char *reason);
 int  call_progress(struct call *call);
-int  call_answer(struct call *call, uint16_t scode, const char *audio_mod, const char *audio_dev);
+int  call_answer(struct call *call, uint16_t scode, const char *audio_mod, const char *audio_dev, enum vidmode vmode);
 int  call_sdp_get(const struct call *call, struct mbuf **descp, bool offer);
 int  call_jbuf_stat(struct re_printf *pf, const struct call *call);
 int  call_info(struct re_printf *pf, const struct call *call);

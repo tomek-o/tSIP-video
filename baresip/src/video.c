@@ -644,7 +644,6 @@ static int set_vidisp(struct vrx *vrx)
 	struct vidisp *vd;
 
 	vrx->vidisp = mem_deref(vrx->vidisp);
-	vrx->vidisp_prm.view = NULL;
 
 	vd = (struct vidisp *)vidisp_find(NULL);
 	if (!vd)
@@ -948,22 +947,6 @@ void video_update_picture(struct video *v)
 	if (!v)
 		return;
 	v->vtx.picup = true;
-}
-
-
-/**
- * Get the driver-specific view of the video stream
- *
- * @param v Video stream
- *
- * @return Opaque view
- */
-void *video_view(const struct video *v)
-{
-	if (!v)
-		return NULL;
-
-	return v->vrx.vidisp_prm.view;
 }
 
 

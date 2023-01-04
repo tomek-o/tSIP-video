@@ -18,7 +18,7 @@ public:
 	int GetCommand(Command& cmd);
 
 	void Call(int accountId, AnsiString target, AnsiString extraHeaderLines, bool video);
-	void Answer(int callId, AnsiString audioRxMod="", AnsiString audioRxDev="");
+	void Answer(int callId, AnsiString audioRxMod="", AnsiString audioRxDev="", bool video = true);
 	void Transfer(int callId, AnsiString target);
 	void SendDigit(int callId, char key);
 	void GenerateTone(int callId,

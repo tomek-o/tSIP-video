@@ -1003,7 +1003,7 @@ extern "C" void control_handler(void)
 		break;
 	case Command::ANSWER:
         LOG("Answering...\n");
-		err = ua_answer(ua_cur(), app.callp, cmd.audioMod.c_str(), cmd.audioDev.c_str());
+		err = ua_answer(ua_cur(), app.callp, cmd.audioMod.c_str(), cmd.audioDev.c_str(), cmd.video?VIDMODE_ON:VIDMODE_OFF);
 		if (err)
 		{
         	DEBUG_WARNING("ua_answer failed: %m\n", err);
