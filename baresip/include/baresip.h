@@ -607,7 +607,7 @@ int  ua_connect(struct ua *ua, struct call **callp,
 		const char *params, enum vidmode vmode, void *vidisp_parent_handle, const char* extra_hdr_lines);
 void ua_hangup(struct ua *ua, struct call *call,
 	       uint16_t scode, const char *reason);
-int  ua_answer(struct ua *ua, struct call *call, const char *audio_mod, const char *audio_dev, enum vidmode vmode);
+int  ua_answer(struct ua *ua, struct call *call, const char *audio_mod, const char *audio_dev, enum vidmode vmode, void *vidisp_parent_handle);
 int  ua_options_send(struct ua *ua, const char *uri,
 		     options_resp_h *resph, void *arg);
 int  ua_sipfd(const struct ua *ua);

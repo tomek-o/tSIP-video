@@ -870,7 +870,7 @@ void ua_hangup(struct ua *ua, struct call *call,
  *
  * @return 0 if success, otherwise errorcode
  */
-int ua_answer(struct ua *ua, struct call *call, const char *audio_mod, const char *audio_dev, enum vidmode vmode)
+int ua_answer(struct ua *ua, struct call *call, const char *audio_mod, const char *audio_dev, enum vidmode vmode, void *vidisp_parent_handle)
 {
 	if (!ua)
 		return EINVAL;
@@ -887,6 +887,8 @@ int ua_answer(struct ua *ua, struct call *call, const char *audio_mod, const cha
 	/* todo: put previous call on-hold (if configured) */
 
 	ua->play = mem_deref(ua->play);
+
+	call_set_vidisp_parent_handle(call, vidisp_parent_handle);	
 
 	return call_answer(call, 200, audio_mod, audio_dev, vmode);
 }
