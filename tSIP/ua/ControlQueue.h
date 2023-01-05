@@ -17,7 +17,7 @@ private:
 public:
 	int GetCommand(Command& cmd);
 
-	void Call(int accountId, AnsiString target, AnsiString extraHeaderLines, bool video);
+	void Call(int accountId, AnsiString target, AnsiString extraHeaderLines, bool video, void *vidispParentHandle);
 	void Answer(int callId, AnsiString audioRxMod="", AnsiString audioRxDev="", bool video = true);
 	void Transfer(int callId, AnsiString target);
 	void SendDigit(int callId, char key);

@@ -24,6 +24,7 @@ class TfrmHotkeys;
 class TfrmPhones;
 class TfrmUaConfOpus;
 class TfrmDialpadConf;
+class TfrmVideoConf;
 
 class TfrmSettings : public TForm
 {
@@ -505,7 +506,6 @@ __published:	// IDE-managed Components
 	TLabel *lblVideoCodecsInfo;
 	TLabel *lblVideoCodecsInfo2;
 	TTabSheet *tsVideo;
-	TCheckBox *chbVideoEnabled;
 	void __fastcall FormShow(TObject *Sender);
 	void __fastcall btnCancelClick(TObject *Sender);
 	void __fastcall btnApplyClick(TObject *Sender);
@@ -561,6 +561,7 @@ private:	// User declarations
 	TfrmPhones *frmPhones;
 	TfrmUaConfOpus *frmConfOpus;
 	TfrmDialpadConf *frmDialpadConf;
+	TfrmVideoConf *frmVideoConf;
 	TTabSheet *lastTab;
 	void AudioCodecEnableSelected(void);
 	void AudioCodecDisableSelected(void);

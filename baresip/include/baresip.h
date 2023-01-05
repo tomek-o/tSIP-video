@@ -82,6 +82,7 @@ int  call_stop_tone(struct call *call, unsigned int tone_id);
 int  call_start_audio_extra_source(struct call *call);
 bool call_has_audio(const struct call *call);
 bool call_has_video(const struct call *call);
+int  call_set_vidisp_parent_handle(struct call *call, void *handle);
 int  call_transfer(struct call *call, const char *uri);
 int  call_status(struct re_printf *pf, const struct call *call);
 int  call_debug(struct re_printf *pf, const struct call *call);
@@ -603,7 +604,7 @@ typedef void (options_resp_h)(int err, const struct sip_msg *msg, void *arg);
 int  ua_alloc(struct ua **uap, const char *aor, const char *pwd, const char *cuser);
 int  ua_connect(struct ua *ua, struct call **callp,
 		const char *from_uri, const char *uri,
-		const char *params, enum vidmode vmode, const char* extra_hdr_lines);
+		const char *params, enum vidmode vmode, void *vidisp_parent_handle, const char* extra_hdr_lines);
 void ua_hangup(struct ua *ua, struct call *call,
 	       uint16_t scode, const char *reason);
 int  ua_answer(struct ua *ua, struct call *call, const char *audio_mod, const char *audio_dev, enum vidmode vmode);

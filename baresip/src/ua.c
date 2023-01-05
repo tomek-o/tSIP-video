@@ -736,7 +736,7 @@ int ua_alloc(struct ua **uap, const char *aor, const char *pwd, const char *cuse
  */
 int ua_connect(struct ua *ua, struct call **callp,
 	       const char *from_uri, const char *uri,
-	       const char *params, enum vidmode vmode, const char* extra_hdr_lines)
+	       const char *params, enum vidmode vmode, void *vidisp_parent_handle, const char* extra_hdr_lines)
 {
 	struct call *call = NULL;
 	struct mbuf *dialbuf;
@@ -810,6 +810,8 @@ int ua_connect(struct ua *ua, struct call **callp,
 	err = ua_call_alloc(&call, ua, vmode, NULL, NULL, from_uri);
 	if (err)
 		goto out;
+
+	call_set_vidisp_parent_handle(call, vidisp_parent_handle);
 
 	pl.p = (char *)dialbuf->buf;
 	pl.l = dialbuf->end;

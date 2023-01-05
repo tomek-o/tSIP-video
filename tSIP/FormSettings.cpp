@@ -9,6 +9,7 @@
 #include "FormPhones.h"
 #include "FormUaConfOpus.h"
 #include "FormDialpadConf.h"
+#include "FormVideoConf.h"
 #include "AudioDevicesList.h"
 #include "AudioModules.h"
 #include "ProgrammableButtons.h"
@@ -69,6 +70,10 @@ __fastcall TfrmSettings::TfrmSettings(TComponent* Owner)
 	frmDialpadConf = new TfrmDialpadConf(tsDialpad);
 	frmDialpadConf->Parent = tsDialpad;
 	frmDialpadConf->Visible = true;
+
+	frmVideoConf = new TfrmVideoConf(tsVideo);
+	frmVideoConf->Parent = tsVideo;
+	frmVideoConf->Visible = true;
 
 	AudioModules::FillInputSelectorCb(cbSoundInputMod);
 	AudioModules::FillOutputSelectorCb(cbSoundOutputMod);
@@ -576,7 +581,7 @@ void __fastcall TfrmSettings::FormShow(TObject *Sender)
 
 	frmDialpadConf->SetCfg(&tmpSettings.dialpad);
 
-	chbVideoEnabled->Checked = tmpSettings.video.enabled;
+	frmVideoConf->SetCfg(&tmpSettings.video);
 
 	if (tmpSettings.locking.hiddenSettingsPages != previousHiddenSettingsPages)
 	{
@@ -994,7 +999,7 @@ void __fastcall TfrmSettings::btnApplyClick(TObject *Sender)
 
 	frmDialpadConf->Apply();
 
-	tmpSettings.video.enabled = chbVideoEnabled->Checked;
+	frmVideoConf->Apply();
 
 	{
 		tmpSettings.locking.hiddenSettingsPages.clear();

@@ -994,7 +994,9 @@ extern "C" void control_handler(void)
 	{
 	case Command::CALL:
 		err = ua_connect(ua_cur(), &app.callp, NULL /*from*/,
-			cmd.target.c_str(), NULL, cmd.video?VIDMODE_ON:VIDMODE_OFF, cmd.extraHeaderLines.c_str());
+			cmd.target.c_str(), NULL,
+			cmd.video?VIDMODE_ON:VIDMODE_OFF, cmd.vidispParentHandle,
+			cmd.extraHeaderLines.c_str());
 		if (err)
 		{
 			DEBUG_WARNING("connect failed: %m\n", err);

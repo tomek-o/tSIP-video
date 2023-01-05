@@ -60,6 +60,7 @@ struct call {
 #ifdef USE_VIDEO
 	struct video *video;      /**< Video stream                         */
 	struct bfcp *bfcp;        /**< BFCP Client                          */
+	void *vidisp_parent_handle;	/**< Parent handle for video display    */
 #endif
 	enum state state;         /**< Call state                           */
 	char *local_uri;          /**< Local SIP uri                        */
@@ -166,7 +167,7 @@ static void call_stream_start(struct call *call, bool active)
 		err |= video_decoder_set(call->video, sc->data, sc->pt,
 					 sc->rparams);
 		if (!err) {
-			err = video_start(call->video, call->peer_uri);
+			err = video_start(call->video, call->vidisp_parent_handle, call->peer_uri);
 		}
 		if (err) {
 			DEBUG_WARNING("video stream: %m\n", err);
@@ -856,6 +857,14 @@ bool call_has_video(const struct call *call)
 #else
 	return false;
 #endif
+}
+
+int  call_set_vidisp_parent_handle(struct call *call, void *handle)
+{
+	if (!call)
+		return EINVAL;
+	call->vidisp_parent_handle = handle;
+	return 0;
 }
 
 

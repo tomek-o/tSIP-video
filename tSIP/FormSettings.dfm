@@ -2493,14 +2493,6 @@ object frmSettings: TfrmSettings
     object tsVideo: TTabSheet
       Caption = 'Video'
       ImageIndex = 28
-      object chbVideoEnabled: TCheckBox
-        Left = 3
-        Top = 3
-        Width = 325
-        Height = 17
-        Caption = 'enabled'
-        TabOrder = 0
-      end
     end
     object tsVideoCodecs: TTabSheet
       Caption = 'Video codecs'

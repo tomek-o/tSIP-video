@@ -386,7 +386,7 @@ int  video_alloc(struct video **vp, const struct config *cfg,
 		 const struct mnat *mnat, struct mnat_sess *mnat_sess,
 		 const struct menc *menc, struct menc_sess *menc_sess,
 		 const char *content, const struct list *vidcodecl);
-int  video_start(struct video *v, const char *peer);
+int  video_start(struct video *v, void* vidisp_parent_handle, const char *peer);
 void video_stop(struct video *v);
 int  video_encoder_set(struct video *v, struct vidcodec *vc,
 		       int pt_tx, const char *params);

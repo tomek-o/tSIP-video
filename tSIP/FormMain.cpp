@@ -922,7 +922,23 @@ void TfrmMain::MakeCall(AnsiString target)
 		}
 	}
 
-	UA->Call(0, call.initialTarget, appSettings.Calls.extraHeaderLines, appSettings.video.enabled);
+	void *displayParentHandle = NULL;
+	switch (appSettings.video.displayParentType)
+	{
+	case VideoConf::DISPLAY_PARENT_NONE:
+		break;
+	case VideoConf::DISPLAY_PARENT_BUTTON:
+	{
+		TProgrammableButton *btn = buttons.GetBtn(appSettings.video.displayParentId);
+		if (btn)
+			displayParentHandle = btn->Handle;
+		break;
+	}
+	default:
+		break;
+	}
+
+	UA->Call(0, call.initialTarget, appSettings.Calls.extraHeaderLines, appSettings.video.enabled, displayParentHandle);
 }
 
 void __fastcall TfrmMain::btnHangupClick(TObject *Sender)

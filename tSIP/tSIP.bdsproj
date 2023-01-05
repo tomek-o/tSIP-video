@@ -521,6 +521,7 @@
         <FILE FILENAME="hotkeys\HotKeyConf.h" CONTAINERID="" LOCALCOMMAND="" UNITNAME="" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="history\HistoryConf.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="HistoryConf" FORMNAME="" DESIGNCLASS="" ADDITIONAL="history\HistoryConf.h"/>
         <FILE FILENAME="VideoConf.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="VideoConf" FORMNAME="" DESIGNCLASS="" ADDITIONAL="VideoConf.h"/>
+        <FILE FILENAME="FormVideoConf.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="FormVideoConf" FORMNAME="frmVideoConf" DESIGNCLASS="" ADDITIONAL="FormVideoConf.h"/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>

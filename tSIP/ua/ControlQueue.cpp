@@ -63,7 +63,7 @@ void ControlQueue::UnRegister(int accountId)
 	fifo.push();
 }
 
-void ControlQueue::Call(int accountId, AnsiString target, AnsiString extraHeaderLines, bool video)
+void ControlQueue::Call(int accountId, AnsiString target, AnsiString extraHeaderLines, bool video, void *vidispParentHandle)
 {
 	ScopedLock<Mutex> lock(mutex);
 	Command *cmd = fifo.getWriteable();
@@ -89,6 +89,7 @@ void ControlQueue::Call(int accountId, AnsiString target, AnsiString extraHeader
     }
 	cmd->extraHeaderLines = extraHeaderLines;
 	cmd->video = video;
+	cmd->vidispParentHandle = vidispParentHandle;
 	fifo.push();
 }
 

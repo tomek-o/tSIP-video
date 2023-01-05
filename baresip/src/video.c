@@ -705,7 +705,7 @@ static void tmr_handler(void *arg)
 }
 
 
-int video_start(struct video *v, const char *peer)
+int video_start(struct video *v, void* vidisp_parent_handle, const char *peer)
 {
 	struct vidsz size;
 	int err;
@@ -725,6 +725,8 @@ int video_start(struct video *v, const char *peer)
 	err = stream_start(v->strm);
 	if (err)
 		return err;
+
+	v->vrx.vidisp_prm.parent_handle = vidisp_parent_handle;
 
 	err = set_vidisp(&v->vrx);
 	if (err) {

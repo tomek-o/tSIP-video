@@ -28,6 +28,7 @@ USEFORM("buttons\FormButtonCopy.cpp", frmButtonCopy);
 USEFORM("buttons\ButtonsDataModule.cpp", dmButtons); /* TDataModule: File Type */
 USEFORM("FormDialpadConf.cpp", frmDialpadConf);
 USEFORM("scripting\FormLuaScriptHelp.cpp", frmLuaScriptHelp);
+USEFORM("FormVideoConf.cpp", frmVideoConf);
 //---------------------------------------------------------------------------
 #pragma link "re.lib"
 #pragma link "rem.lib"
