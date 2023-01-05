@@ -944,7 +944,8 @@ void TfrmMain::MakeCall(AnsiString target)
 		}
 	}
 
-	UA->Call(0, call.initialTarget, appSettings.Calls.extraHeaderLines, appSettings.video.enabled, GetDisplayParentHandle());
+	call.displayParentHandle = GetDisplayParentHandle();
+	UA->Call(0, call.initialTarget, appSettings.Calls.extraHeaderLines, appSettings.video.enabled, call.displayParentHandle);
 }
 
 void __fastcall TfrmMain::btnHangupClick(TObject *Sender)
@@ -964,7 +965,8 @@ void TfrmMain::Answer(void)
 {
 	if (call.incoming)
 	{
-		UA->Answer(0, "", "", appSettings.video.enabled, GetDisplayParentHandle());
+		call.displayParentHandle = GetDisplayParentHandle();
+		UA->Answer(0, "", "", appSettings.video.enabled, call.displayParentHandle);
 		if (appSettings.frmMain.bShowWhenAnsweringCall)
 		{
 			if (!Visible)
@@ -1713,6 +1715,13 @@ void TfrmMain::PollCallbackQueue(void)
 
 				history.AddEntry(entry);
 				UpdateCallHistory();
+
+				if (call.displayParentHandle)
+				{
+                    // get rid of the last image if SDL display is using SDL_CreateWindowFrom
+					InvalidateRect(call.displayParentHandle, NULL, TRUE);
+					UpdateWindow(call.displayParentHandle);
+				}
 
 				AnsiString recordFile = call.recordFile;
 				call.reset();

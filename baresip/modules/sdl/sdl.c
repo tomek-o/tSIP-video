@@ -238,11 +238,7 @@ static int display(struct vidisp_st *st, const char *title,
 		char capt[256];
 		int pos;
 
-		st->flags  = SDL_WINDOW_INPUT_FOCUS;
-		st->flags |= SDL_WINDOW_RESIZABLE;
-
-		if (st->fullscreen)
-			st->flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+		st->flags  = 0; //SDL_WINDOW_INPUT_FOCUS;
 
 		if (title) {
 			re_snprintf(capt, sizeof(capt), "%s - %u x %u",
@@ -256,15 +252,18 @@ static int display(struct vidisp_st *st, const char *title,
 		if (st->parent_handle) {
 			st->flags |= SDL_WINDOW_HIDDEN | SDL_WINDOW_BORDERLESS;
 			pos = 0; //SDL_WINDOWPOS_UNDEFINED;
+			st->window = SDL_CreateWindowFrom(st->parent_handle);
 		} else {
-			st->flags |= SDL_WINDOW_SHOWN;
+			st->flags |= SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE;
+			if (st->fullscreen)
+				st->flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 			pos = SDL_WINDOWPOS_CENTERED;
-		}
-
-		st->window = SDL_CreateWindow(capt,
+			st->window = SDL_CreateWindow(capt,
 						  pos, pos,
 					      frame->size.w, frame->size.h,
-					      st->flags);
+						  st->flags);
+		}
+
 		if (!st->window) {
 			DEBUG_WARNING("sdl: unable to create sdl window: %s\n",
 				SDL_GetError());
@@ -272,21 +271,22 @@ static int display(struct vidisp_st *st, const char *title,
 		}
 
 		if (st->parent_handle) {
+		#if 0
 			HWND hwnd;
 			SDL_SysWMinfo wmInfo;
 			SDL_VERSION(&wmInfo.version);
 			SDL_GetWindowWMInfo(st->window, &wmInfo);
 			hwnd = wmInfo.info.win.window;
 			::SetParent(hwnd, (HWND)st->parent_handle);
+			SDL_ShowWindow(st->window);
+		#endif
 		} else {
 			SDL_SetWindowBordered(st->window, true);
+			SDL_RaiseWindow(st->window);
 		}
 
 		st->size = frame->size;
 		st->fmt = frame->fmt;
-
-		SDL_RaiseWindow(st->window);
-		SDL_ShowWindow(st->window);
 	}
 
 	if (!st->renderer) {
