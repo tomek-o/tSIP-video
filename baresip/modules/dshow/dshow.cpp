@@ -495,6 +495,9 @@ static int alloc(struct vidsrc_st **stp, struct vidsrc *vs,
 	hr = st->mc->Run();
 	if (FAILED(hr)) {
 		DEBUG_WARNING("dshow: alloc: IMediaControl Run failed, result = %d (0x%08X)\n", hr, hr);
+		if (hr == 0x800705AA /* = directshow ERROR_NO_SYSTEM_RESOURCES */) {
+			DEBUG_WARNING("dshow: alloc: ERROR_NO_SYSTEM_RESOURCES failure (two applications trying to use camera same time?)\n");
+		}
 		err = ENODEV;
 		goto out;
 	}

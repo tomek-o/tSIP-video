@@ -145,7 +145,6 @@ CRM application communicating through TCPServer plugin
 - create minimal FFmpeg version
 - VP8, VP9 - could ffmpeg be used?
 - selfview
-- log: warn if failed to open camera because camera is probably in use
 - log: warn if there is no H.264 encoder in ffmpeg
 - RTSP as video source
 
