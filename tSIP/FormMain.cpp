@@ -1716,13 +1716,6 @@ void TfrmMain::PollCallbackQueue(void)
 				history.AddEntry(entry);
 				UpdateCallHistory();
 
-				if (call.displayParentHandle)
-				{
-                    // get rid of the last image if SDL display is using SDL_CreateWindowFrom
-					InvalidateRect(call.displayParentHandle, NULL, TRUE);
-					UpdateWindow(call.displayParentHandle);
-				}
-
 				AnsiString recordFile = call.recordFile;
 				call.reset();
 				call.recordFile = recordFile;	// should be preserved after the call to be used in script

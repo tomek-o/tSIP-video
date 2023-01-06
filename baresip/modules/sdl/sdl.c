@@ -140,6 +140,13 @@ static void destructor(void *arg)
 
 	/* needed to close the window */
 	SDL_PumpEvents();
+
+	if (st->parent_handle) {
+		// get rid of the last image from parent component
+		// if SDL display is using SDL_CreateWindowFrom
+		InvalidateRect(st->parent_handle, NULL, TRUE);
+		UpdateWindow(st->parent_handle);
+	}
 }
 
 
