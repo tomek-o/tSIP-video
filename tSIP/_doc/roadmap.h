@@ -132,6 +132,23 @@ TODO: TLS not working (UDP used instead) when outbound proxy is specified?
 
 CRM application communicating through TCPServer plugin
 
+- video: camera selection
+- colorbar generator as a video source
+- H.264 config: bitrate, profile, packetization mode, FPS, video size for encoding
+- test H.263
+- test MP4
+- avformat video source
+- video recording
+- direction selection (sendonly/recvonly/sendrecv)
+- camera mute
+- ffmpeg configure --enable-libopenh264
+- create minimal FFmpeg version
+- VP8, VP9 - could ffmpeg be used?
+- selfview
+- log: warn if failed to open camera because camera is probably in use
+- log: warn if there is no H.264 encoder in ffmpeg
+- RTSP as video source
+
 */
 
 
