@@ -63,7 +63,12 @@ static struct config core_config = {
 		512000,
 		25,
 		false,
-		VID_FMT_UYVY422
+		VID_FMT_UYVY422,
+		/* selfview */
+		{
+			true,	/* enabled */
+			true,	/* pip */
+		}		
 	},
 #endif
 

@@ -28,6 +28,7 @@ extern const struct mod_export exports_srtp;
 extern const struct mod_export exports_avcodec;
 extern const struct mod_export exports_dshow;
 extern const struct mod_export exports_sdl;
+extern const struct mod_export exports_selfview;
 
 
 const struct mod_export *mod_table[] = {
@@ -57,5 +58,6 @@ const struct mod_export *mod_table[] = {
 	&exports_avcodec,
 	&exports_dshow,
 	&exports_sdl,
+	&exports_selfview,
 	NULL
 };

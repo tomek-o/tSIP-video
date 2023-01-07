@@ -581,7 +581,7 @@ void __fastcall TfrmSettings::FormShow(TObject *Sender)
 
 	frmDialpadConf->SetCfg(&tmpSettings.dialpad);
 
-	frmVideoConf->SetCfg(&tmpSettings.video);
+	frmVideoConf->SetCfg(&tmpSettings.video, &tmpSettings.uaConf);
 
 	if (tmpSettings.locking.hiddenSettingsPages != previousHiddenSettingsPages)
 	{

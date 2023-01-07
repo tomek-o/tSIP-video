@@ -500,10 +500,9 @@ public:
 			);
 		}
 		bool operator!=(const Tls& right) const {
-        	return !(*this == right);
+			return !(*this == right);
 		}
 	} tls;
-
 
 	std::string local;
 	std::string ifname;	///< baresip config_net.ifname
@@ -616,6 +615,35 @@ public:
 	bool customUserAgent;
 	std::string userAgent;
 
+	struct Video {
+		struct Selfview {
+			bool enabled;
+			bool pip;
+			Selfview(void):
+				enabled(true),
+				pip(true)
+			{}
+			bool operator==(const Selfview& right) const {
+				return (
+					enabled == right.enabled &&
+					pip == right.pip
+				);
+			}
+			bool operator!=(const Selfview& right) const {
+				return !(*this == right);
+			}
+		} selfview;
+
+		bool operator==(const Video& right) const {
+			return (
+				selfview == right.selfview
+			);
+		}
+		bool operator!=(const Video& right) const {
+			return !(*this == right);
+		}
+	} video;
+
 	UaConf() {
  		disableUa = false;
 		aec = AEC_NONE;
@@ -703,6 +731,8 @@ public:
 		if (customUserAgent != right.customUserAgent)
 			return false;
 		if (customUserAgent == true && (userAgent != right.userAgent))
+			return false;
+		if (video != right.video)
 			return false;
 		return true;
 	}

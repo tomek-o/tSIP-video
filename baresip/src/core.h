@@ -349,15 +349,6 @@ bool u32mask_enabled(uint32_t mask, uint8_t bit);
  * Video Display
  */
 
-struct vidisp {
-	struct le        le;
-	const char      *name;
-	vidisp_alloc_h  *alloch;
-	vidisp_update_h *updateh;
-	vidisp_disp_h   *disph;
-	vidisp_hide_h   *hideh;
-};
-
 struct vidisp *vidisp_get(struct vidisp_st *st);
 
 

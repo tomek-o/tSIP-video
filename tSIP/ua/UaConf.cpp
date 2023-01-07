@@ -284,6 +284,16 @@ void UaConf::fromJson(const Json::Value& uaConfJson, const struct SettingsAppVer
 
 	customUserAgent = uaConfJson.get("customUserAgent", customUserAgent).asBool();
 	userAgent = uaConfJson.get("userAgent", userAgent).asString();
+
+	{
+		const Json::Value &jv = uaConfJson["video"];
+		{
+			const Json::Value &jsv = jv["selfview"];
+			Video::Selfview &selfview = video.selfview;
+			jsv.getBool("enabled", selfview.enabled);
+			jsv.getBool("pip", selfview.pip);
+		}
+	}
 }
 
 void UaConf::toJson(Json::Value& uaConfJson) const
@@ -423,6 +433,16 @@ void UaConf::toJson(Json::Value& uaConfJson) const
 		jv["caFile"] = tls.caFile;
 		jv["useWindowsRootCaStore"] = tls.useWindowsRootCaStore;
 		jv["verifyServer"] = tls.verifyServer;
+	}
+
+	{
+		Json::Value &jv = uaConfJson["video"];
+		{
+			Json::Value &jsv = jv["selfview"];
+			const Video::Selfview &selfview = video.selfview;
+			jsv["enabled"] = selfview.enabled;
+			jsv["pip"] = selfview.pip;
+		}
 	}
 
 }

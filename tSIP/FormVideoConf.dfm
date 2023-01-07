@@ -53,4 +53,20 @@ object frmVideoConf: TfrmVideoConf
     Height = 21
     TabOrder = 2
   end
+  object chbSelfviewEnable: TCheckBox
+    Left = 8
+    Top = 89
+    Width = 325
+    Height = 17
+    Caption = 'enable selfview (show video from local source)'
+    TabOrder = 3
+  end
+  object chbSelfviewPip: TCheckBox
+    Left = 19
+    Top = 112
+    Width = 325
+    Height = 17
+    Caption = 'show selfview as picture-in-picture'
+    TabOrder = 4
+  end
 end

@@ -232,6 +232,11 @@ struct config {
 		uint32_t fps;           /**< Video framerate                */
 		bool fullscreen;        /**< Enable fullscreen display      */
 		int enc_fmt;            /**< Encoder pixelfmt (enum vidfmt) */
+
+		struct {
+			bool enabled;
+			bool pip;
+		} selfview;		
 	} video;
 
 #endif
@@ -745,6 +750,15 @@ typedef int  (vidisp_update_h)(struct vidisp_st *st, bool fullscreen,
 typedef int  (vidisp_disp_h)(struct vidisp_st *st, const char *title,
 			     const struct vidframe *frame, uint64_t timestamp);
 typedef void (vidisp_hide_h)(struct vidisp_st *st);
+
+struct vidisp {
+	struct le        le;
+	const char      *name;
+	vidisp_alloc_h  *alloch;
+	vidisp_update_h *updateh;
+	vidisp_disp_h   *disph;
+	vidisp_hide_h   *hideh;
+};
 
 int vidisp_register(struct vidisp **vp, const char *name,
 		    vidisp_alloc_h *alloch, vidisp_update_h *updateh,
