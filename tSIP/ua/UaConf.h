@@ -123,7 +123,11 @@ public:
 		{
 			audio_codecs.push_back("PCMU/8000/1");
 			audio_codecs.push_back("PCMA/8000/1");
-			video_codecs.push_back("H264");
+
+			video_codecs.push_back("H264/packetization-mode=0");
+			video_codecs.push_back("H264/packetization-mode=1");
+			video_codecs.push_back("H263");
+			video_codecs.push_back("MP4V-ES");
 		}
 
 		const char* const getTransportStr(void) const {
