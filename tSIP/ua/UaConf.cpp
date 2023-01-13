@@ -288,6 +288,14 @@ void UaConf::fromJson(const Json::Value& uaConfJson, const struct SettingsAppVer
 	{
 		const Json::Value &jv = uaConfJson["video"];
 		{
+			const Json::Value &jSource = jv["videoSource"];
+			if (jSource.type() == Json::objectValue)
+			{
+				jSource.getString("mod", video.videoSource.mod);
+				jSource.getString("dev", video.videoSource.dev);
+			}
+		}
+		{
 			const Json::Value &jsv = jv["selfview"];
 			Video::Selfview &selfview = video.selfview;
 			jsv.getBool("enabled", selfview.enabled);
@@ -437,6 +445,12 @@ void UaConf::toJson(Json::Value& uaConfJson) const
 
 	{
 		Json::Value &jv = uaConfJson["video"];
+		{
+			Json::Value &jSource = jv["videoSource"];
+			const Video::Device &device = video.videoSource;
+			jSource["mod"] = device.mod;
+			jSource["dev"] = device.dev;
+		}
 		{
 			Json::Value &jsv = jv["selfview"];
 			const Video::Selfview &selfview = video.selfview;

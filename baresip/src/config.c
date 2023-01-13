@@ -58,7 +58,7 @@ static struct config core_config = {
 	/** Video */
 	{
 		"dshow", "",						// src dev/mod
-		"sdl", "",						// disp dev/mod
+		"sdl", "",							// disp dev/mod
 		352, 288,
 		512000,
 		25,

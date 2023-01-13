@@ -14,7 +14,7 @@
 		</Source>
 		<BCBPROJECT>
       <project version="10.0">
-        <property category="build.config" name="active" value="0"/>
+        <property category="build.config" name="active" value="1"/>
         <property category="build.config" name="count" value="1"/>
         <property category="build.config" name="excludedefaultforzero" value="0"/>
         <property category="build.config.0" name="builddir" value="Debug"/>
@@ -522,6 +522,8 @@
         <FILE FILENAME="history\HistoryConf.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="HistoryConf" FORMNAME="" DESIGNCLASS="" ADDITIONAL="history\HistoryConf.h"/>
         <FILE FILENAME="VideoConf.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="VideoConf" FORMNAME="" DESIGNCLASS="" ADDITIONAL="VideoConf.h"/>
         <FILE FILENAME="FormVideoConf.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="FormVideoConf" FORMNAME="frmVideoConf" DESIGNCLASS="" ADDITIONAL="FormVideoConf.h"/>
+        <FILE FILENAME="VideoDevicesList.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="VideoDevicesList" FORMNAME="" DESIGNCLASS="" ADDITIONAL="VideoDevicesList.h"/>
+        <FILE FILENAME="ua\VideoModules.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="VideoModules" FORMNAME="" DESIGNCLASS="" ADDITIONAL="ua\VideoModules.h"/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>
@@ -530,7 +532,7 @@
           <VersionInfo Name="MajorVer">0</VersionInfo>
           <VersionInfo Name="MinorVer">2</VersionInfo>
           <VersionInfo Name="Release">11</VersionInfo>
-          <VersionInfo Name="Build">0</VersionInfo>
+          <VersionInfo Name="Build">3</VersionInfo>
           <VersionInfo Name="Debug">False</VersionInfo>
           <VersionInfo Name="PreRelease">False</VersionInfo>
           <VersionInfo Name="Special">False</VersionInfo>
@@ -542,7 +544,7 @@
         <VersionInfoKeys>
           <VersionInfoKeys Name="CompanyName">Tomasz Ostrowski</VersionInfoKeys>
           <VersionInfoKeys Name="FileDescription">SIP softphone</VersionInfoKeys>
-          <VersionInfoKeys Name="FileVersion">0.2.11.0</VersionInfoKeys>
+          <VersionInfoKeys Name="FileVersion">0.2.11.3</VersionInfoKeys>
           <VersionInfoKeys Name="InternalName"></VersionInfoKeys>
           <VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys>
           <VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys>

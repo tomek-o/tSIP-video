@@ -4,6 +4,8 @@
 #define VideoConfH
 //---------------------------------------------------------------------------
 
+#include <System.hpp>
+
 namespace Json
 {
 	class Value;

@@ -11,6 +11,7 @@
 #include <mem.h>
 
 #include "AudioModules.h"
+#include "VideoModules.h"
 #include "baresip_dialog_info_direction.h"
 
 #include <stdint.h>
@@ -620,6 +621,28 @@ public:
 	std::string userAgent;
 
 	struct Video {
+		struct Device {
+			std::string mod;       	/**< module */
+			std::string dev;		/**< device */
+			//std::string wavefile;
+			Device(void):
+				mod(VideoModules::dshow)			
+			{
+			}
+			bool operator==(const Device& right) const {
+				if (mod != right.mod)
+					return false;
+				if (dev != right.dev)
+					return false;
+				//if (wavefile != right.wavefile)
+				//	return false;
+				return true;
+			}
+			bool operator!=(const Device& right) const {
+				return !(*this == right);
+			}
+		} videoSource;
+
 		struct Selfview {
 			bool enabled;
 			bool pip;
@@ -640,6 +663,7 @@ public:
 
 		bool operator==(const Video& right) const {
 			return (
+				videoSource == right.videoSource &&
 				selfview == right.selfview
 			);
 		}

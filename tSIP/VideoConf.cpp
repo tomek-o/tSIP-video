@@ -4,6 +4,7 @@
 #pragma hdrstop
 
 #include "VideoConf.h"
+#include "VideoModules.h"
 #include <json/json.h>
 
 //---------------------------------------------------------------------------
@@ -28,11 +29,13 @@ VideoConf::VideoConf(void):
 	displayParentType(DISPLAY_PARENT_NONE),
 	displayParentId(0)
 {
+
 }
 
 void VideoConf::fromJson(const Json::Value &jv)
 {
 	jv.getBool("enabled", enabled);
+
 	int tmp;
 	tmp = jv.get("displayParentType", displayParentType).asInt();
 	if (tmp >= 0 && tmp < DISPLAY_PARENT__LIMITER)

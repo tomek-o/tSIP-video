@@ -22,6 +22,14 @@ __published:	// IDE-managed Components
 	TEdit *edDisplayParentId;
 	TCheckBox *chbSelfviewEnable;
 	TCheckBox *chbSelfviewPip;
+	TComboBox *cbInputDev;
+	TLabel *lblInputDevice;
+	TLabel *lblInputModule;
+	TLabel *lblAudioInput;
+	TComboBox *cbInputMod;
+	TEdit *edInputFile;
+	TButton *btnSelectInputFile;
+	void __fastcall cbInputModChange(TObject *Sender);
 private:	// User declarations
 	VideoConf *cfg;
 	UaConf *uaCfg;
