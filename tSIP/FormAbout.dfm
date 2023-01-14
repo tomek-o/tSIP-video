@@ -291,10 +291,10 @@ object frmAbout: TfrmAbout
     object lblUrl: TLabel
       Left = 8
       Top = 320
-      Width = 186
+      Width = 217
       Height = 13
       Cursor = crHandPoint
-      Caption = 'https://tomeko.net/software/SIPclient/'
+      Caption = 'https://tomeko.net/software/SIPclient/video/'
       Color = clBtnFace
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlue
