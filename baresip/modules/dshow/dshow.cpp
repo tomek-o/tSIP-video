@@ -333,9 +333,7 @@ static int config_pin(struct vidsrc_st *st, IPin *pin)
 	rh = vih->bmiHeader.biHeight;
 
 	if (w != rw || h != rh) {
-		DEBUG_WARNING("config_pin: picture size missmatch: "
-			      "wanted %d x %d, got %d x %d\n",
-			      w, h, rw, rh);
+		DEBUG_WARNING("dshow alloc: video source size missmatch, wanted %d x %d, got (best match) %d x %d\n", w, h, rw, rh);
 	}
 	st->size.w = rw;
 	st->size.h = rh;
