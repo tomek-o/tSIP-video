@@ -159,6 +159,7 @@ static int open_encoder(struct videnc_state *st,
 			const struct vidsz *size)
 {
 	int err = 0;
+	int status;
 
 	if (st->ctx) {
 		if (st->ctx->codec)
@@ -238,12 +239,35 @@ static int open_encoder(struct videnc_state *st,
 	}
 
 	if (0 == str_cmp(st->codec->name, "libx265")) {
-
 		av_opt_set(st->ctx->priv_data, "profile", "main444-8", 0);
 		av_opt_set(st->ctx->priv_data, "preset", "ultrafast", 0);
 		av_opt_set(st->ctx->priv_data, "tune", "zerolatency", 0);
 	}
-	if (avcodec_open2(st->ctx, st->codec, NULL) < 0) {
+
+	if (0 == str_cmp(st->codec->name, "h263")) {
+		/* Check if requested resolution matches any valid value for H.263
+		   Would custom resolution be possible? At the moment ffmpeg fails for 640x480.
+		*/
+		unsigned int i;
+		bool found = false;
+		struct {
+			int width;
+			int height;
+		} res[] = { {128, 96 }, {176, 144}, {352, 288}, {704, 576}, {1408, 1152} };
+		for (i = 0; i<sizeof(res)/sizeof(res[0]); i++) {
+			if (st->ctx->width == res[i].width && st->ctx->height == res[i].height) {
+				found = true;
+				break;
+			}
+		}
+		if (!found) {
+			DEBUG_WARNING("Requested encoding resolution (%d x %d) is not matching any valid for H.263!\n", st->ctx->width, st->ctx->height);
+		}
+	}
+
+	status = avcodec_open2(st->ctx, st->codec, NULL);
+	if (status < 0) {
+    	DEBUG_WARNING("Failed to open codec for encoding, status = %d\n", status);
 		err = ENOENT;
 		goto out;
 	}
