@@ -13,6 +13,7 @@
 #include <commctrl.h>
 #include <dshow.h>
 #include <qedit.h>
+#include <vector>
 
 
 #define DEBUG_MODULE "dshow"
@@ -260,6 +261,8 @@ static int config_pin(struct vidsrc_st *st, IPin *pin)
 	int best_match = 0;
 	int err = 0;
 
+	std::vector<BITMAPINFOHEADER> bmiHeaders;
+
 	if (!pin || !st)
 		return EINVAL;
 
@@ -274,6 +277,7 @@ static int config_pin(struct vidsrc_st *st, IPin *pin)
 		vih = (VIDEOINFOHEADER *) mt->pbFormat;
 		rw = vih->bmiHeader.biWidth;
 		rh = vih->bmiHeader.biHeight;
+		bmiHeaders.push_back(vih->bmiHeader);
 
 		wh = w * h;
 		rwrh = rw * rh;
@@ -334,6 +338,14 @@ static int config_pin(struct vidsrc_st *st, IPin *pin)
 
 	if (w != rw || h != rh) {
 		DEBUG_WARNING("dshow alloc: video source size missmatch, wanted %d x %d, got (best match) %d x %d\n", w, h, rw, rh);
+		if (!bmiHeaders.empty()) {
+			DEBUG_WARNING("dshow available video sizes: ");
+			for (unsigned int i=0; i<bmiHeaders.size(); i++) {
+				const BITMAPINFOHEADER &bh = bmiHeaders[i];
+				DEBUG_WARNING("%s%d x %d", i!=0?", ":"", bh.biWidth, bh.biHeight);
+			}
+			DEBUG_WARNING("\n");
+		}
 	}
 	st->size.w = rw;
 	st->size.h = rh;
