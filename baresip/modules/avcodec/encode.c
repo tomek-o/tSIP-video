@@ -46,6 +46,7 @@ struct videnc_state {
 	struct videnc_param encprm;
 	struct vidsz encsize;
 	enum AVCodecID codec_id;
+	int open_error;
 
 	union {
 		struct {
@@ -477,13 +478,14 @@ int encode(struct videnc_state *st, bool update, const struct vidframe *frame,
 
 	if (!st || !frame || !pkth)
 		return EINVAL;
+	if (st->open_error)
+		return st->open_error;
 
 	if (!st->ctx || !vidsz_cmp(&st->encsize, &frame->size)) {
-
-		err = open_encoder(st, &st->encprm, &frame->size);
-		if (err) {
-			DEBUG_WARNING("open_encoder: %m\n", err);
-			return err;
+		st->open_error = open_encoder(st, &st->encprm, &frame->size);
+		if (st->open_error) {
+			DEBUG_WARNING("open_encoder: %m\n", st->open_error);
+			return st->open_error;
 		}
 	}
 
