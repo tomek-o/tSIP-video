@@ -259,7 +259,7 @@ static void encode_rtp_send(struct vtx *vtx, struct vidframe *frame)
 	/* Encode the whole picture frame */
 	err = vtx->vc->ench(vtx->enc, vtx->picup, frame, packet_handler, vtx);
 	if (err) {
-		DEBUG_WARNING("encode: %m\n", err);
+		DEBUG_WARNING("video encode: %m\n", err);
 		return;
 	}
 
