@@ -134,8 +134,6 @@ CRM application communicating through TCPServer plugin
 
 - colorbar generator as a video source
 - H.264 config: bitrate, profile, packetization mode, FPS, video size for encoding
-- test H.263
-- test MP4V-ES
 - avformat video source
 - video recording
 - direction selection (sendonly/recvonly/sendrecv)
