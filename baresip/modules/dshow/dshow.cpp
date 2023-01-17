@@ -13,6 +13,8 @@
 #include <commctrl.h>
 #include <dshow.h>
 #include <qedit.h>
+
+#define __TCHAR_H	/**< remove tchar.h content from <vector> header to avoid redefinition warning */
 #include <vector>
 
 
