@@ -127,7 +127,7 @@ public:
 
 			video_codecs.push_back("H264/packetization-mode=0");
 			video_codecs.push_back("H264/packetization-mode=1");
-			video_codecs.push_back("H263");
+			//video_codecs.push_back("H263");
 			video_codecs.push_back("MP4V-ES");
 		}
 
