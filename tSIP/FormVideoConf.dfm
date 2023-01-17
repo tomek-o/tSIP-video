@@ -4,8 +4,8 @@ object frmVideoConf: TfrmVideoConf
   Align = alClient
   BorderStyle = bsNone
   Caption = 'frmVideoConf'
-  ClientHeight = 240
-  ClientWidth = 463
+  ClientHeight = 326
+  ClientWidth = 476
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,19 +13,18 @@ object frmVideoConf: TfrmVideoConf
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  ExplicitWidth = 320
   PixelsPerInch = 96
   TextHeight = 13
   object lblDisplayParentType: TLabel
     Left = 8
-    Top = 90
+    Top = 210
     Width = 122
     Height = 13
     Caption = 'Video display parent type'
   end
   object lblDisplayParentId: TLabel
     Left = 8
-    Top = 114
+    Top = 234
     Width = 108
     Height = 13
     Caption = 'Video display parent id'
@@ -51,6 +50,41 @@ object frmVideoConf: TfrmVideoConf
     Height = 13
     Caption = 'Input'
   end
+  object lblTransmittedVideo: TLabel
+    Left = 8
+    Top = 96
+    Width = 86
+    Height = 13
+    Caption = 'Transmitted video'
+  end
+  object lblWidth: TLabel
+    Left = 100
+    Top = 115
+    Width = 26
+    Height = 13
+    Caption = 'width'
+  end
+  object lblHeight: TLabel
+    Left = 244
+    Top = 115
+    Width = 30
+    Height = 13
+    Caption = 'height'
+  end
+  object lblBitrate: TLabel
+    Left = 100
+    Top = 139
+    Width = 32
+    Height = 13
+    Caption = 'bitrate'
+  end
+  object lblFps: TLabel
+    Left = 100
+    Top = 163
+    Width = 15
+    Height = 13
+    Caption = 'fps'
+  end
   object chbEnabled: TCheckBox
     Left = 3
     Top = 3
@@ -61,23 +95,23 @@ object frmVideoConf: TfrmVideoConf
   end
   object cbDisplayParentType: TComboBox
     Left = 152
-    Top = 87
+    Top = 207
     Width = 240
     Height = 21
     Style = csDropDownList
-    ItemHeight = 0
+    ItemHeight = 13
     TabOrder = 1
   end
   object edDisplayParentId: TEdit
     Left = 152
-    Top = 111
+    Top = 231
     Width = 62
     Height = 21
     TabOrder = 2
   end
   object chbSelfviewEnable: TCheckBox
     Left = 8
-    Top = 145
+    Top = 265
     Width = 325
     Height = 17
     Caption = 'enable selfview (show video from local source)'
@@ -85,7 +119,7 @@ object frmVideoConf: TfrmVideoConf
   end
   object chbSelfviewPip: TCheckBox
     Left = 19
-    Top = 168
+    Top = 288
     Width = 325
     Height = 17
     Caption = 'show selfview as picture-in-picture'
@@ -97,7 +131,7 @@ object frmVideoConf: TfrmVideoConf
     Width = 240
     Height = 21
     Style = csDropDownList
-    ItemHeight = 0
+    ItemHeight = 13
     TabOrder = 5
   end
   object cbInputMod: TComboBox
@@ -106,7 +140,7 @@ object frmVideoConf: TfrmVideoConf
     Width = 240
     Height = 21
     Style = csDropDownList
-    ItemHeight = 0
+    ItemHeight = 13
     TabOrder = 6
     OnChange = cbInputModChange
   end
@@ -126,5 +160,33 @@ object frmVideoConf: TfrmVideoConf
     Caption = '...'
     TabOrder = 8
     Visible = False
+  end
+  object edWidth: TEdit
+    Left = 152
+    Top = 112
+    Width = 49
+    Height = 21
+    TabOrder = 9
+  end
+  object edHeight: TEdit
+    Left = 296
+    Top = 112
+    Width = 49
+    Height = 21
+    TabOrder = 10
+  end
+  object edBitrate: TEdit
+    Left = 152
+    Top = 136
+    Width = 73
+    Height = 21
+    TabOrder = 11
+  end
+  object edFps: TEdit
+    Left = 152
+    Top = 160
+    Width = 49
+    Height = 21
+    TabOrder = 12
   end
 end

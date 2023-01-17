@@ -42,6 +42,11 @@ void TfrmVideoConf::SetCfg(VideoConf *cfg, UaConf *uaCfg)
 	cbDisplayParentType->ItemIndex = cfg->displayParentType;
 	edDisplayParentId->Text = cfg->displayParentId;
 
+	edWidth->Text = uaCfg->video.width;
+	edHeight->Text = uaCfg->video.height;
+	edBitrate->Text = uaCfg->video.bitrate;
+	edFps->Text = uaCfg->video.fps;
+
 	chbSelfviewEnable->Checked = uaCfg->video.selfview.enabled;
 	chbSelfviewPip->Checked = uaCfg->video.selfview.pip;
 }
@@ -58,6 +63,11 @@ void TfrmVideoConf::Apply(void)
 
 	cfg->displayParentType = static_cast<VideoConf::DisplayParentType>(cbDisplayParentType->ItemIndex);
 	cfg->displayParentId = StrToIntDef(edDisplayParentId->Text, cfg->displayParentId);
+
+	uaCfg->video.width = StrToIntDef(edWidth->Text, uaCfg->video.width);
+	uaCfg->video.height = StrToIntDef(edHeight->Text, uaCfg->video.height);
+	uaCfg->video.bitrate = StrToIntDef(edBitrate->Text, uaCfg->video.bitrate);
+	uaCfg->video.fps = StrToIntDef(edFps->Text, uaCfg->video.fps);
 
 	uaCfg->video.selfview.enabled = chbSelfviewEnable->Checked;
 	uaCfg->video.selfview.pip = chbSelfviewPip->Checked;

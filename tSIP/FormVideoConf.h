@@ -29,6 +29,15 @@ __published:	// IDE-managed Components
 	TComboBox *cbInputMod;
 	TEdit *edInputFile;
 	TButton *btnSelectInputFile;
+	TLabel *lblTransmittedVideo;
+	TLabel *lblWidth;
+	TEdit *edWidth;
+	TLabel *lblHeight;
+	TEdit *edHeight;
+	TLabel *lblBitrate;
+	TEdit *edBitrate;
+	TLabel *lblFps;
+	TEdit *edFps;
 	void __fastcall cbInputModChange(TObject *Sender);
 private:	// User declarations
 	VideoConf *cfg;

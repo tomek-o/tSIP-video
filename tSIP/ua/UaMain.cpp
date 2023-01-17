@@ -647,6 +647,10 @@ static int app_init(void)
 
 	strncpyz(cfg->video.src_mod, appSettings.uaConf.video.videoSource.mod.c_str(), sizeof(cfg->video.src_mod));
 	strncpyz(cfg->video.src_dev, appSettings.uaConf.video.videoSource.dev.c_str(), sizeof(cfg->video.src_dev));
+	cfg->video.width = appSettings.uaConf.video.width;
+	cfg->video.height = appSettings.uaConf.video.height;
+	cfg->video.bitrate = appSettings.uaConf.video.bitrate;
+	cfg->video.fps = appSettings.uaConf.video.fps;
 	cfg->video.selfview.enabled = appSettings.uaConf.video.selfview.enabled;
 	cfg->video.selfview.pip = appSettings.uaConf.video.selfview.pip;
 

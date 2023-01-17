@@ -624,24 +624,27 @@ public:
 		struct Device {
 			std::string mod;       	/**< module */
 			std::string dev;		/**< device */
-			//std::string wavefile;
 			Device(void):
-				mod(VideoModules::dshow)			
+				mod(VideoModules::dshow)
 			{
 			}
 			bool operator==(const Device& right) const {
-				if (mod != right.mod)
-					return false;
-				if (dev != right.dev)
-					return false;
-				//if (wavefile != right.wavefile)
-				//	return false;
+				if (
+					mod != right.mod ||
+					dev != right.dev
+				) {
+                	return false;
+				}
 				return true;
 			}
 			bool operator!=(const Device& right) const {
 				return !(*this == right);
 			}
 		} videoSource;
+
+		unsigned int width, height;
+		unsigned int bitrate;
+		unsigned int fps;
 
 		struct Selfview {
 			bool enabled;
@@ -661,9 +664,21 @@ public:
 			}
 		} selfview;
 
+		Video(void):
+			width(640),
+			height(480),
+			bitrate(512000),
+			fps(25)
+		{
+		}
+
 		bool operator==(const Video& right) const {
 			return (
 				videoSource == right.videoSource &&
+				width == right.width &&
+				height == right.height &&
+				bitrate == right.bitrate &&
+				fps == right.fps &&
 				selfview == right.selfview
 			);
 		}
