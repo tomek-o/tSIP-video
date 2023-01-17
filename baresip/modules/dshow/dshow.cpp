@@ -339,7 +339,7 @@ static int config_pin(struct vidsrc_st *st, IPin *pin)
 	rh = vih->bmiHeader.biHeight;
 
 	if (w != rw || h != rh) {
-		DEBUG_WARNING("dshow alloc: video source size missmatch, wanted %d x %d, got (best match) %d x %d\n", w, h, rw, rh);
+		DEBUG_WARNING("dshow alloc: video source size mismatch, wanted %d x %d, got (best match) %d x %d\n", w, h, rw, rh);
 		if (!bmiHeaders.empty()) {
 			DEBUG_WARNING("dshow available video sizes: ");
 			for (unsigned int i=0; i<bmiHeaders.size(); i++) {
