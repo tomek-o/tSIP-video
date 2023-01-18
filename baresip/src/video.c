@@ -310,7 +310,7 @@ static int vtx_alloc(struct vtx *vtx, struct video *video)
 	if (err)
 		return err;
 
-	vtx->mb = mbuf_alloc(STREAM_PRESZ + 512);
+	vtx->mb = mbuf_alloc(STREAM_PRESZ + 2048);
 	if (!vtx->mb)
 		return ENOMEM;
 
