@@ -1963,7 +1963,176 @@ object frmAbout: TfrmAbout
         'original software.'
         
           '3. This notice may not be removed or altered from any source dis' +
-          'tribution.')
+          'tribution.'
+        ''
+        ''
+        '-------------------------------------------------------'
+        'About The Cisco-Provided Binary of OpenH264 Video Codec'
+        '-------------------------------------------------------'
+        ''
+        
+          'Cisco provides this program under the terms of the BSD license. ' +
+          ' '
+        ''
+        
+          'Additionally, this binary is licensed under Cisco'#8217's AVC/H.264 Pa' +
+          'tent Portfolio License from MPEG LA, at '
+        
+          'no cost to you, provided that the requirements and conditions sh' +
+          'own below in the AVC/H.264 Patent '
+        'Portfolio sections are met.  '
+        ''
+        
+          'As with all AVC/H.264 codecs, you may also obtain your own paten' +
+          't license from MPEG LA or from the '
+        
+          'individual patent owners, or proceed at your own risk.  Your rig' +
+          'hts from Cisco under the BSD license are '
+        'not affected by this choice.  '
+        ''
+        
+          'For more information on the OpenH264 binary licensing, please se' +
+          'e the OpenH264 FAQ found at '
+        'http://www.openh264.org/faq.html#binary '
+        ''
+        
+          'A corresponding source code to this binary program is available ' +
+          'under the same BSD terms, which can be '
+        'found at http://www.openh264.org'
+        ''
+        '-----------'
+        'BSD License'
+        '-----------'
+        ''
+        'Copyright '#169' 2014 Cisco Systems, Inc.'
+        ''
+        'All rights reserved.'
+        ''
+        
+          'Redistribution and use in source and binary forms, with or witho' +
+          'ut modification, are permitted provided that '
+        'the following conditions are met:'
+        ''
+        
+          '1. Redistributions of source code must retain the above copyrigh' +
+          't notice, this list of conditions and the '
+        'following disclaimer.'
+        ''
+        
+          '2. Redistributions in binary form must reproduce the above copyr' +
+          'ight notice, this list of conditions and the '
+        
+          'following disclaimer in the documentation and/or other materials' +
+          ' provided with the distribution.'
+        ''
+        
+          'THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUT' +
+          'ORS '#8220'AS IS'#8221' '
+        
+          'AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITE' +
+          'D TO, THE '
+        
+          'IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICUL' +
+          'AR PURPOSE '
+        
+          'ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTR' +
+          'IBUTORS BE '
+        
+          'LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,' +
+          ' OR CONSEQUENTIAL '
+        
+          'DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUT' +
+          'E GOODS OR '
+        
+          'SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTIO' +
+          'N) HOWEVER '
+        
+          'CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRI' +
+          'CT LIABILITY, OR '
+        
+          'TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT ' +
+          'OF THE USE OF '
+        
+          'THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE' +
+          '.'
+        ''
+        '-----------------------------------------'
+        'AVC/H.264 Patent Portfolio License Notice'
+        '-----------------------------------------'
+        ''
+        
+          'The binary form of this Software is distributed by Cisco under t' +
+          'he AVC/H.264 Patent Portfolio License from '
+        
+          'MPEG LA, and is subject to the following requirements, which may' +
+          ' or may not be applicable to your use of '
+        'this software: '
+        ''
+        
+          'THIS PRODUCT IS LICENSED UNDER THE AVC PATENT PORTFOLIO LICENSE ' +
+          'FOR THE '
+        
+          'PERSONAL USE OF A CONSUMER OR OTHER USES IN WHICH IT DOES NOT RE' +
+          'CEIVE '
+        
+          'REMUNERATION TO (i) ENCODE VIDEO IN COMPLIANCE WITH THE AVC STAN' +
+          'DARD ('#8220'AVC '
+        
+          'VIDEO'#8221') AND/OR (ii) DECODE AVC VIDEO THAT WAS ENCODED BY A CONSU' +
+          'MER ENGAGED IN A '
+        
+          'PERSONAL ACTIVITY AND/OR WAS OBTAINED FROM A VIDEO PROVIDER LICE' +
+          'NSED TO '
+        
+          'PROVIDE AVC VIDEO.  NO LICENSE IS GRANTED OR SHALL BE IMPLIED FO' +
+          'R ANY OTHER USE.  '
+        'ADDITIONAL INFORMATION MAY BE OBTAINED FROM MPEG LA, L.L.C. SEE '
+        'HTTP://WWW.MPEGLA.COM'
+        ''
+        
+          'Accordingly, please be advised that content providers and broadc' +
+          'asters using AVC/H.264 in their service '
+        
+          'may be required to obtain a separate use license from MPEG LA, r' +
+          'eferred to as "(b) sublicenses" in the '
+        'SUMMARY OF AVC/H.264 LICENSE TERMS from MPEG LA found at '
+        'http://www.openh264.org/mpegla'
+        ''
+        '---------------------------------------------'
+        'AVC/H.264 Patent Portfolio License Conditions'
+        '---------------------------------------------'
+        ''
+        
+          'In addition, the Cisco-provided binary of this Software is licen' +
+          'sed under Cisco'#39's license from MPEG LA '
+        'only if the following conditions are met:'
+        ''
+        
+          '1. The Cisco-provided binary is separately downloaded to an end ' +
+          'user'#8217's device, and not integrated into or '
+        
+          'combined with third party software prior to being downloaded to ' +
+          'the end user'#8217's device;'
+        ''
+        
+          '2. The end user must have the ability to control (e.g., to enabl' +
+          'e, disable, or re-enable) the use of the '
+        'Cisco-provided binary;'
+        ''
+        
+          '3. Third party software, in the location where end users can con' +
+          'trol the use of the Cisco-provided binary, '
+        'must display the following text:'
+        ''
+        '       "OpenH264 Video Codec provided by Cisco Systems, Inc."'
+        ''
+        
+          '4.  Any third-party software that makes use of the Cisco-provide' +
+          'd binary must reproduce all of the above '
+        
+          'text, as well as this last condition, in the EULA and/or in anot' +
+          'her location where licensing information is to '
+        'be presented to the end user.  ')
       ReadOnly = True
       ScrollBars = ssVertical
       TabOrder = 0

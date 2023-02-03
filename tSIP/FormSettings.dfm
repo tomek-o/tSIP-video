@@ -52,7 +52,7 @@ object frmSettings: TfrmSettings
     Top = 0
     Width = 572
     Height = 468
-    ActivePage = tsVideo
+    ActivePage = tsVideoCodecs
     Align = alClient
     TabHeight = 10
     TabOrder = 1
@@ -721,7 +721,7 @@ object frmSettings: TfrmSettings
         Width = 337
         Height = 21
         Style = csDropDownList
-        ItemHeight = 13
+        ItemHeight = 0
         ItemIndex = 0
         TabOrder = 9
         Text = 
@@ -739,7 +739,7 @@ object frmSettings: TfrmSettings
         Width = 145
         Height = 21
         Style = csDropDownList
-        ItemHeight = 13
+        ItemHeight = 0
         ItemIndex = 0
         TabOrder = 10
         Text = 'by number'
@@ -922,7 +922,7 @@ object frmSettings: TfrmSettings
         Width = 138
         Height = 21
         Style = csDropDownList
-        ItemHeight = 13
+        ItemHeight = 0
         ItemIndex = 0
         TabOrder = 8
         Text = 'first one'
@@ -2153,7 +2153,7 @@ object frmSettings: TfrmSettings
         Width = 206
         Height = 21
         Style = csDropDownList
-        ItemHeight = 13
+        ItemHeight = 0
         ItemIndex = 2
         TabOrder = 0
         Text = 'WebRTC'
@@ -2369,7 +2369,7 @@ object frmSettings: TfrmSettings
         Width = 274
         Height = 21
         Style = csDropDownList
-        ItemHeight = 13
+        ItemHeight = 0
         ItemIndex = 0
         TabOrder = 1
         Text = '\recordings\ subdirectory (relative)'
@@ -2400,7 +2400,7 @@ object frmSettings: TfrmSettings
         Width = 274
         Height = 21
         Style = csDropDownList
-        ItemHeight = 13
+        ItemHeight = 0
         ItemIndex = 0
         TabOrder = 4
         Text = 'mono (both sides mixed or one side only)'
@@ -2415,7 +2415,7 @@ object frmSettings: TfrmSettings
         Width = 274
         Height = 21
         Style = csDropDownList
-        ItemHeight = 13
+        ItemHeight = 0
         ItemIndex = 1
         TabOrder = 5
         Text = 'automatic - call confirmed state'
@@ -2430,7 +2430,7 @@ object frmSettings: TfrmSettings
         Width = 274
         Height = 21
         Style = csDropDownList
-        ItemHeight = 13
+        ItemHeight = 0
         ItemIndex = 0
         TabOrder = 6
         Text = 'both local and remote (mixed)'
@@ -2465,7 +2465,7 @@ object frmSettings: TfrmSettings
         Width = 274
         Height = 21
         Style = csDropDownList
-        ItemHeight = 13
+        ItemHeight = 0
         ItemIndex = 0
         TabOrder = 9
         Text = 'WAVE'
@@ -2565,18 +2565,10 @@ object frmSettings: TfrmSettings
     object tsVideo: TTabSheet
       Caption = 'Video'
       ImageIndex = 28
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
     end
     object tsVideoCodecs: TTabSheet
       Caption = 'Video codecs'
       ImageIndex = 27
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object lblVideoCodecsAvailable: TLabel
         Left = 15
         Top = 5
@@ -2738,7 +2730,7 @@ object frmSettings: TfrmSettings
         Width = 322
         Height = 21
         Style = csDropDownList
-        ItemHeight = 13
+        ItemHeight = 0
         ItemIndex = 0
         TabOrder = 3
         Text = 'always passive (only using "Access-URL" button)'
@@ -2875,7 +2867,7 @@ object frmSettings: TfrmSettings
         Width = 240
         Height = 21
         Style = csDropDownList
-        ItemHeight = 13
+        ItemHeight = 0
         ItemIndex = 0
         TabOrder = 4
         Text = 'Manual only (HTTP query button)'
@@ -4163,7 +4155,7 @@ object frmSettings: TfrmSettings
         Width = 111
         Height = 21
         Style = csDropDownList
-        ItemHeight = 13
+        ItemHeight = 0
         TabOrder = 0
         Items.Strings = (
           '100'
@@ -4203,7 +4195,7 @@ object frmSettings: TfrmSettings
         Top = 45
         Width = 111
         Height = 21
-        ItemHeight = 13
+        ItemHeight = 0
         TabOrder = 4
         Items.Strings = (
           '1048576'
@@ -4218,7 +4210,7 @@ object frmSettings: TfrmSettings
         Width = 111
         Height = 21
         Style = csDropDownList
-        ItemHeight = 13
+        ItemHeight = 0
         ItemIndex = 1
         TabOrder = 5
         Text = '1'

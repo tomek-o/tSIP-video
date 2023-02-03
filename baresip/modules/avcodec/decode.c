@@ -24,7 +24,7 @@
 
 
 struct viddec_state {
-	AVCodec *codec;
+	const AVCodec *codec;
 	AVCodecContext *ctx;
 	AVFrame *pict;
 	struct mbuf *mb;
@@ -63,7 +63,7 @@ static int init_decoder(struct viddec_state *st, const char *name)
 
 	st->ctx = avcodec_alloc_context3(st->codec);
 
-	st->pict = av_frame_alloc(); //avcodec_alloc_frame();
+	st->pict = av_frame_alloc();
 
 	if (!st->ctx || !st->pict)
 		return ENOMEM;
@@ -124,6 +124,7 @@ static int ffdecode(struct viddec_state *st, struct vidframe *frame,
 		    bool eof, struct mbuf *src)
 {
 	int i, got_picture, ret, err;
+	AVPacket *avpkt;
 
 	/* assemble packets in "mbuf" */
 	err = mbuf_write_mem(st->mb, mbuf_buf(src), mbuf_get_left(src));
@@ -140,25 +141,36 @@ static int ffdecode(struct viddec_state *st, struct vidframe *frame,
 		goto out;
 	}
 
-	do {
-		AVPacket avpkt;
+	avpkt = av_packet_alloc();
+	if (!avpkt) {
+		err = ENOMEM;
+		goto out;
+	}
 
-		av_init_packet(&avpkt);
-		avpkt.data = st->mb->buf;
-		avpkt.size = (int)mbuf_get_left(st->mb);
+	avpkt->data = st->mb->buf;
+	avpkt->size = (int)st->mb->end;
 
-		ret = avcodec_decode_video2(st->ctx, st->pict,
-						&got_picture, &avpkt);
-	} while (0);
-
+	ret = avcodec_send_packet(st->ctx, avpkt);
 	if (ret < 0) {
+		char err_buf[AV_ERROR_MAX_STRING_SIZE] = {0};
+		DEBUG_WARNING("avcodec: decode: avcodec_send_packet error,"
+			" packet=%zu bytes, ret=%d (%s)\n",
+			st->mb->end, ret, av_make_error_string(err_buf, AV_ERROR_MAX_STRING_SIZE, ret));
 		err = EBADMSG;
 		goto out;
 	}
-	else if (ret && ret != (int)mbuf_get_left(st->mb)) {
-		DEBUG_NOTICE("decoded only %d of %u bytes (got_pict=%d)\n",
-			     ret, mbuf_get_left(st->mb), got_picture);
+
+	ret = avcodec_receive_frame(st->ctx, st->pict);
+	if (ret == AVERROR(EAGAIN)) {
+		goto out;
 	}
+	else if (ret < 0) {
+		DEBUG_WARNING("avcodec: avcodec_receive_frame error ret=%d\n", ret);
+		err = EBADMSG;
+		goto out;
+	}
+
+	got_picture = true;
 
 	mbuf_skip_to_end(src);
 
@@ -175,7 +187,7 @@ static int ffdecode(struct viddec_state *st, struct vidframe *frame,
  out:
 	if (eof)
 		mbuf_rewind(st->mb);
-
+	av_packet_free(&avpkt);
 	return err;
 }
 

@@ -148,7 +148,7 @@
           <property category="win32.*.win32b.bcc32" name="option.I.arg.45" value="..\..\..\opusenc\include"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.46" value="..\..\..\zrtpcpp\zrtp"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.47" value="..\..\..\zrtpcpp"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.48" value="..\..\..\ffmpeg\src"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.48" value="..\..\..\ffmpeg\include"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.49" value="..\..\..\inttypes"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.5" value="..\..\modules\avcodec"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.50" value="..\..\..\sdl2-2.26.1\include"/>

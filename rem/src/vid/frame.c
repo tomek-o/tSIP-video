@@ -185,7 +185,7 @@ int vidframe_alloc(struct vidframe **vfp, enum vidfmt fmt,
 
 	*vfp = vf;
 
-	re_printf("vidframe_alloc: %p\n", vf);
+	//re_printf("vidframe_alloc: %p\n", vf);
 
 	return 0;
 }

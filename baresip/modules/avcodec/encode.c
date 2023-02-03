@@ -38,9 +38,6 @@ struct picsz {
 struct videnc_state {
 	const AVCodec *codec;
 	AVCodecContext *ctx;
-	AVFrame *pict;
-	struct mbuf *mb;
-	size_t sz_max; /* todo: figure out proper buffer size */
 	int64_t pts;
 	struct mbuf *mb_frag;
 	struct videnc_param encprm;
@@ -70,7 +67,6 @@ static void destructor(void *arg)
 {
 	struct videnc_state *st = arg;
 
-	mem_deref(st->mb);
 	mem_deref(st->mb_frag);
 
 	if (st->ctx) {
@@ -78,9 +74,6 @@ static void destructor(void *arg)
 			avcodec_close(st->ctx);
 		av_free(st->ctx);
 	}
-
-	if (st->pict)
-		av_free(st->pict);
 }
 
 
@@ -168,17 +161,13 @@ static int open_encoder(struct videnc_state *st,
 		av_free(st->ctx);
 	}
 
-	if (st->pict)
-		av_free(st->pict);
-
 	st->ctx = avcodec_alloc_context3(st->codec);
-
-	st->pict = av_frame_alloc(); //avcodec_alloc_frame();
-
-	if (!st->ctx || !st->pict) {
+	if (!st->ctx) {
 		err = ENOMEM;
 		goto out;
 	}
+
+	av_opt_set_defaults(st->ctx);
 
 	st->ctx->bit_rate  = prm->bitrate;
 	st->ctx->width     = size->w;
@@ -187,7 +176,9 @@ static int open_encoder(struct videnc_state *st,
 	st->ctx->pix_fmt   = AV_PIX_FMT_YUV420P;
 	st->ctx->time_base.num = 1;
 	st->ctx->time_base.den = prm->fps;
-	if (0 == str_cmp(st->codec->name, "libx264")) {
+	if (0 == str_cmp(st->codec->name, "libx264") ||
+        0 == str_cmp(st->codec->name, "libopen264")
+		) {
 
 		av_opt_set(st->ctx->priv_data, "profile", "baseline", 0);
 		av_opt_set(st->ctx->priv_data, "preset", "ultrafast", 0);
@@ -199,7 +190,7 @@ static int open_encoder(struct videnc_state *st,
 		}
 	}
 
-	/* params to avoid ffmpeg/x264 default preset error */
+	/* params to avoid libavcodec/x264 default preset error */
 	if (st->codec_id == AV_CODEC_ID_H264) {
 		if (0 == str_cmp(st->codec->name, "h264_vaapi")) {
 			av_opt_set(st->ctx->priv_data, "profile",
@@ -280,11 +271,6 @@ static int open_encoder(struct videnc_state *st,
 				avcodec_close(st->ctx);
 			av_free(st->ctx);
 			st->ctx = NULL;
-		}
-
-		if (st->pict) {
-			av_free(st->pict);
-			st->pict = NULL;
 		}
 	}
 	else
@@ -435,14 +421,11 @@ int encode_update(struct videnc_state **vesp, const struct vidcodec *vc,
 		goto out;
 	}
 
-	st->mb  = mbuf_alloc(AV_INPUT_BUFFER_MIN_SIZE * 20);
 	st->mb_frag = mbuf_alloc(1024);
-	if (!st->mb || !st->mb_frag) {
+	if (!st->mb_frag) {
 		err = ENOMEM;
 		goto out;
 	}
-
-	st->sz_max = st->mb->size;
 
 	err = init_encoder(st, vc->name);
 	if (err) {
@@ -474,7 +457,10 @@ int encode_update(struct videnc_state **vesp, const struct vidcodec *vc,
 int encode(struct videnc_state *st, bool update, const struct vidframe *frame,
 	   videnc_packet_h *pkth, void *arg)
 {
+	AVFrame *pict = NULL;
+	AVPacket *pkt = NULL;	
 	int i, err, ret;
+	struct mbuf mb;
 
 	if (!st || !frame || !pkth)
 		return EINVAL;
@@ -489,68 +475,76 @@ int encode(struct videnc_state *st, bool update, const struct vidframe *frame,
 		}
 	}
 
-	for (i=0; i<4; i++) {
-		st->pict->data[i]     = frame->data[i];
-		st->pict->linesize[i] = frame->linesize[i];
+	pict = av_frame_alloc();
+	if (!pict) {
+		err = ENOMEM;
+		goto out;
 	}
-	st->pict->pts = st->pts++;
+
+	pict->format = AV_PIX_FMT_YUV420P; //vidfmt_to_avpixfmt(frame->fmt);
+	pict->width = frame->size.w;
+	pict->height = frame->size.h;
+	pict->pts = st->pts++;
+
+	for (i=0; i<4; i++) {
+		pict->data[i]     = frame->data[i];
+		pict->linesize[i] = frame->linesize[i];
+	}
+
 	if (update) {
 		re_printf("avcodec encoder picture update\n");
-		st->pict->key_frame = 1;
-#ifdef FF_I_TYPE
-		st->pict->pict_type = FF_I_TYPE;  /* Infra Frame */
-#else
-		st->pict->pict_type = AV_PICTURE_TYPE_I;
-#endif
+		pict->key_frame = 1;
+		pict->pict_type = AV_PICTURE_TYPE_I;
 	}
-	else {
-		st->pict->key_frame = 0;
-		st->pict->pict_type = 0;
+	pict->color_range = AVCOL_RANGE_MPEG;
+
+	pkt = av_packet_alloc();
+	if (!pkt) {
+		err = ENOMEM;
+		goto out;
 	}
 
-	mbuf_rewind(st->mb);
+	ret = avcodec_send_frame(st->ctx, pict);
+	if (ret < 0) {
+		err = EBADMSG;
+		goto out;
+	}
 
-	do {
-		AVPacket *avpkt = av_packet_alloc();
-		int got_packet = 0;
+	ret = avcodec_receive_packet(st->ctx, pkt);
+	if (ret < 0) {
+		err = 0;
+		goto out;
+	}
 
-		avpkt->data = st->mb->buf;
-		avpkt->size = (int)st->mb->size;
-
-		ret = avcodec_encode_video2(st->ctx, avpkt,
-						st->pict, &got_packet);
-		if (ret < 0) {
-			av_packet_free(&avpkt);
-			return EBADMSG;
-		}
-		if (!got_packet) {
-			av_packet_free(&avpkt);
-			return 0;
-		}
-
-		mbuf_set_end(st->mb, avpkt->size);
-		av_packet_free(&avpkt);
-	} while (0);
-
+	mb.buf = pkt->data;
+	mb.size = pkt->size;
+	mb.pos = 0;
+	mb.end = pkt->size;
 
 	switch (st->codec_id) {
 
 	case AV_CODEC_ID_H263:
-		err = h263_packetize(st, st->mb, pkth, arg);
+		err = h263_packetize(st, &mb, pkth, arg);
 		break;
 
 	case AV_CODEC_ID_H264:
-		err = h264_packetize(st->mb, st->encprm.pktsize, pkth, arg);
+		err = h264_packetize(&mb, st->encprm.pktsize, pkth, arg);
 		break;
 
 	case AV_CODEC_ID_MPEG4:
-		err = general_packetize(st->mb, st->encprm.pktsize, pkth, arg);
+		err = general_packetize(&mb, st->encprm.pktsize, pkth, arg);
 		break;
 
 	default:
 		err = EPROTO;
 		break;
 	}
+
+ out:
+	if (pict)
+		av_free(pict);
+	if (pkt)
+		av_packet_free(&pkt);
 
 	return err;
 }

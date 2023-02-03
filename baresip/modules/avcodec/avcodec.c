@@ -176,12 +176,14 @@ static struct vidcodec mpg4 = {
 
 static int module_init(void)
 {
+#if 0
 	char h264enc[64] = "libx264";
+#else
+	char h264enc[64] = "libopenh264";
+#endif
 	char h264dec[64] = "h264";
 	char h265enc[64] = "libx265";
 	char h265dec[64] = "hevc";
-
-	avcodec_register_all();
 
 	avcodec_h264enc = avcodec_find_encoder_by_name(h264enc);
 	if (!avcodec_h264enc) {
@@ -201,11 +203,11 @@ static int module_init(void)
 		vidcodec_register(&h264_1);
 	}
 	if (avcodec_h264enc) {
-		DEBUG_INFO("avcodec: using H.264 encoder '%s' -- %s\n",
-		     avcodec_h264enc->name, avcodec_h264enc->long_name);
+		DEBUG_WARNING("avcodec: using H.264 encoder '%s' -- %s\n",
+			 avcodec_h264enc->name, avcodec_h264enc->long_name);
 	}
 	if (avcodec_h264dec) {
-		DEBUG_INFO("avcodec: using H.264 decoder '%s' -- %s\n",
+		DEBUG_WARNING("avcodec: using H.264 decoder '%s' -- %s\n",
 		     avcodec_h264dec->name, avcodec_h264dec->long_name);
 	}
 
