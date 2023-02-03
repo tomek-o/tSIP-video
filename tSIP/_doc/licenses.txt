@@ -576,7 +576,6 @@ Permission is granted to anyone to use this software for any purpose, including 
 =============================================================================
 http://www.openh264.org/BINARY_LICENSE.txt
 =============================================================================
-
 -------------------------------------------------------
 About The Cisco-Provided Binary of OpenH264 Video Codec
 -------------------------------------------------------

@@ -1965,7 +1965,13 @@ object frmAbout: TfrmAbout
           '3. This notice may not be removed or altered from any source dis' +
           'tribution.'
         ''
-        ''
+        
+          '================================================================' +
+          '============='
+        'http://www.openh264.org/BINARY_LICENSE.txt'
+        
+          '================================================================' +
+          '============='
         '-------------------------------------------------------'
         'About The Cisco-Provided Binary of OpenH264 Video Codec'
         '-------------------------------------------------------'
