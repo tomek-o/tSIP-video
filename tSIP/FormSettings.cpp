@@ -20,6 +20,7 @@
 #include "Registry.hpp"
 #include "Branding.h"
 #include "Translate.h"
+#include "baresip_base_config.h"
 #include <FileCtrl.hpp>
 #include <assert.h>
 #include <stdio.h>

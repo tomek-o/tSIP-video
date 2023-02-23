@@ -1,4 +1,5 @@
 /* static.c - manually updated */
+#include "baresip_base_config.h"
 #include <re_types.h>
 #include <re_mod.h>
 
