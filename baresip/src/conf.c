@@ -194,6 +194,7 @@ int configure(void)
 	pl_set_str(&modname, "srtp");
 	load_module2(NULL, &modname);
 
+#ifdef USE_VIDEO
 	pl_set_str(&modname, "avcodec");
 	load_module2(NULL, &modname);
 
@@ -207,6 +208,7 @@ int configure(void)
 		pl_set_str(&modname, "selfview");
 		load_module2(NULL, &modname);
 	}
+#endif
 
 	return err;
 }

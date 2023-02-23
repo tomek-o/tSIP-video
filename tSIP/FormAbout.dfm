@@ -3,7 +3,7 @@ object frmAbout: TfrmAbout
   Top = 108
   BorderStyle = bsDialog
   Caption = 'About'
-  ClientHeight = 378
+  ClientHeight = 408
   ClientWidth = 537
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -22,7 +22,7 @@ object frmAbout: TfrmAbout
     Left = 0
     Top = 0
     Width = 537
-    Height = 342
+    Height = 369
     BevelInner = bvRaised
     BevelOuter = bvLowered
     ParentColor = True
@@ -273,12 +273,12 @@ object frmAbout: TfrmAbout
     end
     object Copyright: TLabel
       Left = 8
-      Top = 300
-      Width = 510
+      Top = 325
+      Width = 493
       Height = 13
       Caption = 
-        'Copyright '#169' 2011 - 2023 Tomasz Ostrowski, distributed under the ' +
-        'same BSD-style license as re/rem/baresip.'
+        'Copyright '#169' 2011 - 2023 Tomasz Ostrowski, distributed under BSD ' +
+        '2-Clause License like re/rem/baresip.'
       IsControl = True
     end
     object lblVersion: TLabel
@@ -290,11 +290,11 @@ object frmAbout: TfrmAbout
     end
     object lblUrl: TLabel
       Left = 8
-      Top = 320
-      Width = 217
+      Top = 344
+      Width = 186
       Height = 13
       Cursor = crHandPoint
-      Caption = 'https://tomeko.net/software/SIPclient/video/'
+      Caption = 'https://tomeko.net/software/SIPclient/'
       Color = clBtnFace
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlue
@@ -323,7 +323,7 @@ object frmAbout: TfrmAbout
     end
     object lblBaresipLicense: TLabel
       Left = 8
-      Top = 86
+      Top = 100
       Width = 332
       Height = 13
       Caption = 
@@ -331,16 +331,16 @@ object frmAbout: TfrmAbout
         ' from '
     end
     object lblCodeguard: TLabel
-      Left = 309
-      Top = 8
+      Left = 252
+      Top = 46
       Width = 54
       Height = 13
       Caption = 'CodeGuard'
       IsControl = True
     end
     object lblCodeGuardState: TLabel
-      Left = 369
-      Top = 8
+      Left = 312
+      Top = 46
       Width = 16
       Height = 13
       Caption = 'NO'
@@ -348,16 +348,16 @@ object frmAbout: TfrmAbout
       IsControl = True
     end
     object lblDebug: TLabel
-      Left = 309
-      Top = 25
+      Left = 159
+      Top = 46
       Width = 32
       Height = 13
       Caption = 'Debug'
       IsControl = True
     end
     object lblDebugState: TLabel
-      Left = 369
-      Top = 25
+      Left = 197
+      Top = 46
       Width = 16
       Height = 13
       Caption = 'NO'
@@ -365,14 +365,14 @@ object frmAbout: TfrmAbout
     end
     object Label1: TLabel
       Left = 8
-      Top = 101
+      Top = 115
       Width = 271
       Height = 13
       Caption = 'and other projects used with respect to following licenses:'
     end
     object Label2: TLabel
       Left = 344
-      Top = 86
+      Top = 100
       Width = 127
       Height = 13
       Cursor = crHandPoint
@@ -389,7 +389,7 @@ object frmAbout: TfrmAbout
     end
     object lblExeLocation: TLabel
       Left = 159
-      Top = 46
+      Top = 65
       Width = 368
       Height = 13
       Cursor = crHandPoint
@@ -407,7 +407,7 @@ object frmAbout: TfrmAbout
     end
     object lblLocation: TLabel
       Left = 88
-      Top = 46
+      Top = 65
       Width = 41
       Height = 13
       Caption = 'Location'
@@ -415,7 +415,7 @@ object frmAbout: TfrmAbout
     end
     object lblProfileDir: TLabel
       Left = 88
-      Top = 65
+      Top = 84
       Width = 43
       Height = 13
       Caption = 'Profile dir'
@@ -423,7 +423,7 @@ object frmAbout: TfrmAbout
     end
     object lblProfileDirLocation: TLabel
       Left = 159
-      Top = 65
+      Top = 84
       Width = 368
       Height = 13
       Cursor = crHandPoint
@@ -439,11 +439,36 @@ object frmAbout: TfrmAbout
       ParentFont = False
       OnClick = lblProfileDirLocationClick
     end
+    object Label3: TLabel
+      Left = 88
+      Top = 46
+      Width = 55
+      Height = 13
+      Caption = 'Build config'
+      IsControl = True
+    end
+    object lblVideo: TLabel
+      Left = 370
+      Top = 46
+      Width = 27
+      Height = 13
+      Caption = 'Video'
+      IsControl = True
+    end
+    object lblVideoState: TLabel
+      Left = 403
+      Top = 46
+      Width = 16
+      Height = 13
+      Caption = 'NO'
+      OnClick = lblCodeGuardStateClick
+      IsControl = True
+    end
     object Memo: TMemo
       Left = 8
-      Top = 118
+      Top = 134
       Width = 519
-      Height = 174
+      Height = 185
       Color = clBtnFace
       Lines.Strings = (
         '============================================='
@@ -2146,7 +2171,7 @@ object frmAbout: TfrmAbout
   end
   object OKButton: TButton
     Left = 227
-    Top = 348
+    Top = 375
     Width = 75
     Height = 25
     Caption = 'OK'

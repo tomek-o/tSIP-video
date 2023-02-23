@@ -2565,6 +2565,10 @@ object frmSettings: TfrmSettings
     object tsVideo: TTabSheet
       Caption = 'Video'
       ImageIndex = 28
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
     end
     object tsVideoCodecs: TTabSheet
       Caption = 'Video codecs'

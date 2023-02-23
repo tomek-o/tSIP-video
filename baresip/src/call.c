@@ -796,14 +796,14 @@ int call_answer(struct call *call, uint16_t scode, const char *audio_mod, const 
 	if (audio_mod && audio_dev && audio_mod[0] != '\0') {
 		audio_set_rx_device(call->audio, audio_mod, audio_dev);
 	}
-
+#ifdef USE_VIDEO
 	if (vmode == VIDMODE_OFF && call->video) {
 		if (call_has_video(call)) {
 			(void)re_printf("answering call: video is disabled\n");
 		}
 		call->video = mem_deref(call->video);
 	}
-
+#endif
 	if (call->got_offer) {
 
 		err = update_media(call);
@@ -863,7 +863,9 @@ int  call_set_vidisp_parent_handle(struct call *call, void *handle)
 {
 	if (!call)
 		return EINVAL;
+#ifdef USE_VIDEO
 	call->vidisp_parent_handle = handle;
+#endif
 	return 0;
 }
 

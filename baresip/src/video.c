@@ -12,6 +12,7 @@
 #include <baresip.h>
 #include "core.h"
 
+#ifdef USE_VIDEO
 
 #define DEBUG_MODULE "video"
 #define DEBUG_LEVEL 5
@@ -1052,3 +1053,5 @@ void video_set_devicename(struct video *v, const char *src, const char *disp)
 	str_ncpy(v->vtx.device, src, sizeof(v->vtx.device));
 	str_ncpy(v->vrx.device, disp, sizeof(v->vrx.device));
 }
+
+#endif	/* USE_VIDEO */

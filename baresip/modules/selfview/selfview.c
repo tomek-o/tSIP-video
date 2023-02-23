@@ -8,6 +8,8 @@
 #include <rem.h>
 #include <baresip.h>
 
+#ifdef USE_VIDEO
+
 #define DEBUG_MODULE "selfview"
 #define DEBUG_LEVEL 5
 #include <re_dbg.h>
@@ -310,3 +312,5 @@ EXPORT_SYM const struct mod_export DECL_EXPORTS(selfview) = {
 	module_init,
 	module_close
 };
+
+#endif /* USE_VIDEO */

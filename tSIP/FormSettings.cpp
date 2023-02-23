@@ -144,8 +144,10 @@ void TfrmSettings::CreatePages(void)
 		CreatePagesNode(NULL, tsRecording);
 	TTreeNode *nodeCodecs = CreatePagesNode(NULL, tsCodecs);
 	CreatePagesNode(nodeCodecs, tsUaConfOpus);
+#ifdef USE_VIDEO
 	CreatePagesNode(NULL, tsVideo);
 	TTreeNode *nodeCodecsVideo = CreatePagesNode(NULL, tsVideoCodecs);
+#endif
 	CreatePagesNode(NULL, tsIntegration);
 	CreatePagesNode(NULL, tsHotkeys);
 	CreatePagesNode(NULL, tsContacts);

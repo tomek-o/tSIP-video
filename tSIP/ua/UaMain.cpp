@@ -644,7 +644,7 @@ static int app_init(void)
 	cfg->audio.portaudioOutSuggestedLatency = appSettings.uaConf.audioPortaudio.outSuggestedLatency;
 
 	cfg->audio.loop_ring_without_silence = appSettings.uaConf.loopRingWithoutSilence;
-
+#ifdef USE_VIDEO
 	strncpyz(cfg->video.src_mod, appSettings.uaConf.video.videoSource.mod.c_str(), sizeof(cfg->video.src_mod));
 	strncpyz(cfg->video.src_dev, appSettings.uaConf.video.videoSource.dev.c_str(), sizeof(cfg->video.src_dev));
 	cfg->video.width = appSettings.uaConf.video.width;
@@ -653,7 +653,7 @@ static int app_init(void)
 	cfg->video.fps = appSettings.uaConf.video.fps;
 	cfg->video.selfview.enabled = appSettings.uaConf.video.selfview.enabled;
 	cfg->video.selfview.pip = appSettings.uaConf.video.selfview.pip;
-
+#endif
 	configure();
 
 	/* Initialise User Agents */

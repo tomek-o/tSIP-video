@@ -489,6 +489,7 @@
         <FILE FILENAME="..\..\modules\sdl\sdl.c" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="sdl" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\modules\avcodec\avcodec_sdp.c" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="avcodec_sdp" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\modules\selfview\selfview.c" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="selfview" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\include\baresip_base_config.h" CONTAINERID="" LOCALCOMMAND=""/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>

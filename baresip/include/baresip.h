@@ -12,12 +12,10 @@ extern "C" {
 #endif
 
 
-#define USE_VIDEO
-
-
 /** Defines the Baresip version string */
 #define BARESIP_VERSION "0.4.6"
 
+#include "baresip_base_config.h"
 #include "baresip_dialog_info_status.h"
 #include "baresip_dialog_info_direction.h"
 #include "baresip_presence_status.h"
