@@ -234,7 +234,14 @@ struct config {
 		struct {
 			bool enabled;
 			bool pip;
-		} selfview;		
+		} selfview;
+
+		struct {
+			/* OBS virtual cam bug? reading back returns 1920x1080 after 640x360 was set
+			   and its data callback still returns 640x360.
+			*/
+			bool skip_reading_back_media_format;
+		} dshow;
 	} video;
 
 #endif
