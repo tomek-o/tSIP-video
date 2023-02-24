@@ -4,8 +4,8 @@ object frmVideoConf: TfrmVideoConf
   Align = alClient
   BorderStyle = bsNone
   Caption = 'frmVideoConf'
-  ClientHeight = 326
-  ClientWidth = 476
+  ClientHeight = 363
+  ClientWidth = 618
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -188,5 +188,15 @@ object frmVideoConf: TfrmVideoConf
     Width = 49
     Height = 21
     TabOrder = 12
+  end
+  object chbDshowSkipReadingBackMediaFormat: TCheckBox
+    Left = 8
+    Top = 320
+    Width = 521
+    Height = 17
+    Caption = 
+      'DirectShow camera input: skip reading back set media format (wor' +
+      'karound for possible OBS-camera bug)'
+    TabOrder = 13
   end
 end

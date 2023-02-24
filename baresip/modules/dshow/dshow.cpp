@@ -265,6 +265,7 @@ static int config_pin(struct vidsrc_st *st, IPin *pin)
 	int wh, rwrh;
 	int best_match = 0;
 	int err = 0;
+	struct config * cfg = conf_config();
 
 	std::vector<BITMAPINFOHEADER> bmiHeaders;
 
@@ -330,14 +331,22 @@ static int config_pin(struct vidsrc_st *st, IPin *pin)
 		goto out;
 	}
 
-	hr = stream_conf->GetFormat(&mt);
-	if (FAILED(hr)) {
-		err = EINVAL;
-		goto out;
-	}
-	if (mt->formattype != FORMAT_VideoInfo) {
-		err = EINVAL;
-		goto out;
+	if (cfg->video.dshow.skip_reading_back_media_format == false) {
+		/*
+			WTF? OBS camera returns back 1920x1080 below (GetFormat) after 640x360 was set
+			but later passes only 640x360x4 bytes in data callback.
+			Should GetFormat result be ignored?
+		*/
+		mt = free_mt(mt);
+		hr = stream_conf->GetFormat(&mt);
+		if (FAILED(hr)) {
+			err = EINVAL;
+			goto out;
+		}
+		if (mt->formattype != FORMAT_VideoInfo) {
+			err = EINVAL;
+			goto out;
+		}
 	}
 
 	vih = (VIDEOINFOHEADER *)mt->pbFormat;

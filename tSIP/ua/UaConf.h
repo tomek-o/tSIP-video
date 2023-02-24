@@ -664,6 +664,21 @@ public:
 			}
 		} selfview;
 
+		struct Dshow {
+			bool skipReadingBackMediaFormat;
+			Dshow(void):
+				skipReadingBackMediaFormat(false)
+			{}
+			bool operator==(const Dshow& right) const {
+				return (
+                	skipReadingBackMediaFormat == right.skipReadingBackMediaFormat
+				);
+			}
+			bool operator!=(const Dshow& right) const {
+            	return !(*this == right);
+			}
+		} dshow;
+
 		Video(void):
 			width(640),
 			height(480),
@@ -679,7 +694,8 @@ public:
 				height == right.height &&
 				bitrate == right.bitrate &&
 				fps == right.fps &&
-				selfview == right.selfview
+				selfview == right.selfview &&
+				dshow == right.dshow
 			);
 		}
 		bool operator!=(const Video& right) const {

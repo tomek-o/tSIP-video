@@ -653,6 +653,7 @@ static int app_init(void)
 	cfg->video.fps = appSettings.uaConf.video.fps;
 	cfg->video.selfview.enabled = appSettings.uaConf.video.selfview.enabled;
 	cfg->video.selfview.pip = appSettings.uaConf.video.selfview.pip;
+	cfg->video.dshow.skip_reading_back_media_format = appSettings.uaConf.video.dshow.skipReadingBackMediaFormat;
 #endif
 	configure();
 

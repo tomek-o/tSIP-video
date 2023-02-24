@@ -305,6 +305,11 @@ void UaConf::fromJson(const Json::Value& uaConfJson, const struct SettingsAppVer
 			jsv.getBool("enabled", selfview.enabled);
 			jsv.getBool("pip", selfview.pip);
 		}
+		{
+			const Json::Value &j = jv["dshow"];
+			Video::Dshow &dshow = video.dshow;
+			j.getBool("skipReadingBackMediaFormat", dshow.skipReadingBackMediaFormat);
+		}
 	}
 }
 
@@ -464,6 +469,11 @@ void UaConf::toJson(Json::Value& uaConfJson) const
 			const Video::Selfview &selfview = video.selfview;
 			jsv["enabled"] = selfview.enabled;
 			jsv["pip"] = selfview.pip;
+		}
+		{
+			Json::Value &j = jv["dshow"];
+			const Video::Dshow &dshow = video.dshow;
+			j["skipReadingBackMediaFormat"] = dshow.skipReadingBackMediaFormat;
 		}
 	}
 

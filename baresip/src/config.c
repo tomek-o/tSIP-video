@@ -68,7 +68,11 @@ static struct config core_config = {
 		{
 			true,	/* enabled */
 			true,	/* pip */
-		}		
+		},
+		/* dshow */
+		{
+        	false	/* skip reading back media type */
+		}
 	},
 #endif
 

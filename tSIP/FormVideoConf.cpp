@@ -49,6 +49,8 @@ void TfrmVideoConf::SetCfg(VideoConf *cfg, UaConf *uaCfg)
 
 	chbSelfviewEnable->Checked = uaCfg->video.selfview.enabled;
 	chbSelfviewPip->Checked = uaCfg->video.selfview.pip;
+
+	chbDshowSkipReadingBackMediaFormat->Checked = uaCfg->video.dshow.skipReadingBackMediaFormat;
 }
 
 void TfrmVideoConf::Apply(void)
@@ -71,6 +73,8 @@ void TfrmVideoConf::Apply(void)
 
 	uaCfg->video.selfview.enabled = chbSelfviewEnable->Checked;
 	uaCfg->video.selfview.pip = chbSelfviewPip->Checked;
+
+	uaCfg->video.dshow.skipReadingBackMediaFormat = chbDshowSkipReadingBackMediaFormat->Checked;
 }
 
 void __fastcall TfrmVideoConf::cbInputModChange(TObject *Sender)

@@ -38,6 +38,7 @@ __published:	// IDE-managed Components
 	TEdit *edBitrate;
 	TLabel *lblFps;
 	TEdit *edFps;
+	TCheckBox *chbDshowSkipReadingBackMediaFormat;
 	void __fastcall cbInputModChange(TObject *Sender);
 private:	// User declarations
 	VideoConf *cfg;
