@@ -253,8 +253,8 @@ static AM_MEDIA_TYPE *free_mt(AM_MEDIA_TYPE *mt)
 
 static int config_pin(struct vidsrc_st *st, IPin *pin)
 {
-	AM_MEDIA_TYPE *mt;
-	AM_MEDIA_TYPE *best_mt = NULL;
+	AM_MEDIA_TYPE *mt = NULL;	/* exact match, if found */
+	AM_MEDIA_TYPE *best_mt = NULL;	/* next best match, if found */
 	IEnumMediaTypes *media_enum = NULL;
 	IAMStreamConfig *stream_conf = NULL;
 	VIDEOINFOHEADER *vih;
@@ -301,6 +301,7 @@ static int config_pin(struct vidsrc_st *st, IPin *pin)
 				best_match = diff;
 				free_mt(best_mt);
 				best_mt = mt;
+				mt = NULL;
 			}
 		}
 	}
