@@ -276,8 +276,10 @@ static int config_pin(struct vidsrc_st *st, IPin *pin)
 		return ENODATA;
 
 	while ((hr = media_enum->Next(1, &mt, NULL)) == S_OK) {
-		if (mt->formattype != FORMAT_VideoInfo)
+		if (mt->formattype != FORMAT_VideoInfo) {
+			mt = free_mt(mt);
 			continue;
+		}
 
 		vih = (VIDEOINFOHEADER *) mt->pbFormat;
 		rw = vih->bmiHeader.biWidth;
